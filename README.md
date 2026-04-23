@@ -1,5 +1,5 @@
 # Weather Data Analyzer
-- This is a simple desktop application built using Java Swing that lets users view and analyze weather data from different cities over a 7-day period. The app connects to a weather API to fetch real data, then processes it to show useful insights like averages and temperature extremes.
+This is a simple desktop application built using Java Swing that lets users view and analyze weather data from different cities over a 7-day period. The app connects to a weather API to fetch real data, then processes it to show useful insights like averages and temperature extremes.
 
 ## What it does?
 - Lets you choose cities from a list
