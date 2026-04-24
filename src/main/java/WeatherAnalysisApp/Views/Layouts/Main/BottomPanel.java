@@ -1,4 +1,4 @@
-package View.MainLayout;
+package WeatherAnalysisApp.Views.Layouts.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,8 +7,8 @@ import java.awt.*;
  * Bottom layout or the analysis panel
  * Extends from JPanel class
  */
-public class BottomLayout extends JPanel {
-    public BottomLayout() {
+public class BottomPanel extends JPanel {
+    public BottomPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
     }
 }

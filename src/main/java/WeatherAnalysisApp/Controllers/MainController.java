@@ -1,6 +1,6 @@
-package Controllers;
+package WeatherAnalysisApp.Controllers;
 
-import Application.Data;
+import WeatherAnalysisApp.Application.Data;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -10,20 +10,54 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MainController {
+    // Date time formatter
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
 
+    // Top panel components
+    private final JButton fetchButton;
+    private final JButton analyzeDataButton;
+    private final JButton refreshButton;
+    private final JButton clearButton;
+    private final JButton addCityButton;
+
+    // Center panel components
     private final DefaultListModel<String> cityListModel;
     private final JList<String> cityList;
     private final DefaultTableModel cityDataTableModel;
     private final JTable cityDataTable;
 
     /**
-     * Constructor
-     * @param cityList The list component of the city
-     * @param cityDataTableModel The default table model of the city table
-     * @param cityDataTable The city data table
+     * The constructor of the program
+     * @param fetchButton Fetch button - <code>Top component</code>
+     * @param analyzeDataButton Analyze button - <code>Top component</code>
+     * @param refreshButton Refresh button - <code>Top component</code>
+     * @param clearButton Clear button - <code>Top component</code>
+     * @param addCityButton Add city button - <code>Top component</code>
+     * @param cityListModel City list model - <code>Center component</code>
+     * @param cityList City list JList - <code>Center component</code>
+     * @param cityDataTableModel City data table model - <code>Center component</code>
+     * @param cityDataTable City data jtable - <code>Center component</code>
      */
-    public MainController(DefaultListModel<String> cityListModel, JList<String> cityList, DefaultTableModel cityDataTableModel, JTable cityDataTable) {
+    public MainController(
+            JButton fetchButton,
+            JButton analyzeDataButton,
+            JButton refreshButton,
+            JButton clearButton,
+            JButton addCityButton,
+
+            DefaultListModel<String> cityListModel,
+            JList<String> cityList,
+            DefaultTableModel cityDataTableModel,
+            JTable cityDataTable
+    ) {
+        // Load top panel components
+        this.fetchButton = fetchButton;
+        this.analyzeDataButton = analyzeDataButton;
+        this.refreshButton = refreshButton;
+        this.clearButton = clearButton;
+        this.addCityButton = addCityButton;
+
+        // Load center panel components
         this.cityListModel = cityListModel;
         this.cityList = cityList;
         this.cityDataTableModel = cityDataTableModel;

@@ -1,4 +1,4 @@
-package Application;
+package WeatherAnalysisApp.Application;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class Data {
     public static ArrayList<String[]> CITIES_DATETIME = new ArrayList<>();
     public static ArrayList<double[]> CITIES_TEMPERATURE = new ArrayList<>();
 
-    /**
+    /*
      * Static initialization
      * Add the data of each city when the class loads.
      */

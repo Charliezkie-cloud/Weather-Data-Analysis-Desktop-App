@@ -1,4 +1,4 @@
-package Models;
+package WeatherAnalysisApp.Models;
 
 /**
  * The model for Hourly Units

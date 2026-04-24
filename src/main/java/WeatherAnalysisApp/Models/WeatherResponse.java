@@ -1,4 +1,4 @@
-package Models;
+package WeatherAnalysisApp.Models;
 
 /**
  * The model for weather response
@@ -14,18 +14,4 @@ public class WeatherResponse {
 
     public HourlyUnits hourly_units;
     public Hourly hourly;
-
-    /**
-     * A test for toString()
-     * @return The test string of the properties
-     */
-    public String testToString() {
-        return String.format("""
-                Latitude: %s
-
-                Longituide: %s
-
-                Generation Time
-                """);
-    }
 }

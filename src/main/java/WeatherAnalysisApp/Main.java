@@ -1,5 +1,6 @@
-import Services.Api;
-import View.MainView;
+package WeatherAnalysisApp;
+
+import WeatherAnalysisApp.Views.MainView;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.*;
@@ -12,6 +13,6 @@ public class Main {
             mainView.setVisible(true);
         });
 
-        Api.runTestRequest();
+        // Api.runTestRequest();
     }
 }

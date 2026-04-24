@@ -1,4 +1,4 @@
-package View.Components;
+package WeatherAnalysisApp.Views.Components;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

@@ -1,4 +1,4 @@
-package View.MainLayout;
+package WeatherAnalysisApp.Views.Layouts.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,14 +7,14 @@ import java.awt.*;
  * The top layout of the main content
  * Extends from JPanel class
  */
-public class TopLayout extends JPanel {
+public class TopPanel extends JPanel {
     public static JButton fetchButton;
     public static JButton analyzeDataButton;
     public static JButton refreshButton;
     public static JButton clearButton;
     public static JButton addCityButton;
 
-    public TopLayout() {
+    public TopPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // ========== Start of Components ==========

@@ -1,7 +1,6 @@
-package View.MainLayout;
+package WeatherAnalysisApp.Views.Layouts.Main;
 
-import Controllers.MainController;
-import View.Components.RowColorRenderer;
+import WeatherAnalysisApp.Views.Components.RowColorRenderer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,13 +10,13 @@ import java.awt.*;
  * The center layout of the main content
  * Extends from JPanel class
  */
-public class CenterLayout extends JPanel {
+public class CenterPanel extends JPanel {
     public static DefaultListModel<String> cityListModel = new DefaultListModel<>();
     public static JList<String> cityList;
     public static DefaultTableModel cityDataTableModel;
     public static JTable cityDataTable;
 
-    public CenterLayout() {
+    public CenterPanel() {
         setLayout(new GridLayout(1, 2));
 
         // Left panel
