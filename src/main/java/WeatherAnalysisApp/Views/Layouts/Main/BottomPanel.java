@@ -8,7 +8,19 @@ import java.awt.*;
  * Extends from <code>JPanel</code> class
  */
 public class BottomPanel extends JPanel {
+    public static JLabel statusLabel;
+
     public BottomPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // ========== Start of Components ==========
+
+        // Status label
+        statusLabel = new JLabel("None");
+
+        // ========== End of Components ==========
+
+        add(new JLabel("Status:"));
+        add(statusLabel);
     }
 }

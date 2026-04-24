@@ -1,6 +1,7 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Services.Api;
 import WeatherAnalysisApp.Views.AddCityView;
 
 import javax.swing.*;
@@ -29,6 +30,9 @@ public class MainController {
     private final DefaultTableModel cityDataTableModel;
     private final JTable cityDataTable;
 
+    // Left panel components
+    private final JLabel statusLabel;
+
     /**
      * The constructor of the program
      * @param fetchButton Fetch button - <code>Top component</code>
@@ -51,7 +55,9 @@ public class MainController {
             DefaultListModel<String> cityListModel,
             JList<String> cityList,
             DefaultTableModel cityDataTableModel,
-            JTable cityDataTable
+            JTable cityDataTable,
+
+            JLabel statusLabel
     ) {
         // Load top panel components
         this.fetchButton = fetchButton;
@@ -66,6 +72,9 @@ public class MainController {
         this.cityDataTableModel = cityDataTableModel;
         this.cityDataTable = cityDataTable;
 
+        // Load bottom panel components
+        this.statusLabel = statusLabel;
+
         // Load cities to the list
         for (String city : Data.CITIES)
             cityListModel.addElement(city);
@@ -73,10 +82,15 @@ public class MainController {
         // Load listeners
         cityList.addListSelectionListener(new CitiesListSelectionListener());
         addCityButton.addActionListener(new AddCityActionListener());
+
+        // Load threads
+        Thread checkInternetThread = new Thread(new CheckInternet());
+
+        // Run threads
+        checkInternetThread.start();
     }
 
     // ========== EVENTS ==========
-
     /**
      * The list selection event listener for <code>Cities</code> list
      */
@@ -129,6 +143,16 @@ public class MainController {
             AddCityView addCityView = new AddCityView(MainController.this);
 
             addCityView.setVisible(true);
+        }
+    }
+
+    // ========== THREADS ==========
+    private class CheckInternet implements Runnable {
+        public void run() {
+            if (Api.isInternetAvailable())
+                statusLabel.setText("Internet available");
+            else
+                statusLabel.setText("Internet not available");
         }
     }
 

@@ -51,7 +51,9 @@ public class MainView extends JFrame {
                 CenterPanel.cityListModel,
                 CenterPanel.cityList,
                 CenterPanel.cityDataTableModel,
-                CenterPanel.cityDataTable
+                CenterPanel.cityDataTable,
+
+                BottomPanel.statusLabel
         );
 
         // ========== End of Components ==========

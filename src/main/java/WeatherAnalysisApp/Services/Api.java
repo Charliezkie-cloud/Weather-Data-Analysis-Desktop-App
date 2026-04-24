@@ -10,8 +10,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * The class for API services
+ */
 public class Api {
-    // ========== TESTS ==========
+    // ========== START OF TESTS ==========
     /**
      * Runs the test http request
      */
@@ -43,7 +46,7 @@ public class Api {
      * Runs the test parse from JSON string to object
      * @param data The data string of the request response
      */
-    public static void testParse(String data) {
+    private static void testParse(String data) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -57,5 +60,44 @@ public class Api {
             System.err.println("Error from: Api.testParse()");
             System.err.println(e.getMessage());
         }
+    }
+
+    // ========== HELPERS ==========
+    /**
+     * Checks if the internet is available or not
+     * @return True of internet is available otherwise false.
+     */
+    public static boolean isInternetAvailable() {
+        try {
+            String url = "https://www.google.com/generate_204";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            return response.statusCode() == 204;
+        } catch (IOException | InterruptedException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Builds the API url for you ;D
+     * @param latitude The latitude of the city
+     * @param longitude The longitude of the city
+     * @return The complete URL of the API for the request
+     */
+    public static String apiUrlBuilder(double latitude, double longitude) {
+        return "https://api.open-meteo.com/v1/forecast"
+                + "?latitude=" + String.format("%.4f", latitude)
+                + "&longitude=" + String.format("%.4f", longitude)
+                + "&hourly=temperature_2m"
+                + "&past_days=0"
+                + "&forecast_days=7";
     }
 }

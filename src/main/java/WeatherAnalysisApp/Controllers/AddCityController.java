@@ -1,6 +1,7 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Models.City;
+import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,14 +14,14 @@ public class AddCityController {
     // Main controller
     private final MainController mainController;
 
-    // Left panel
+    // Left panel components
     private final JTextField cityField;
     private final JTextField latitudeField;
     private final JTextField longitudeField;
     private final JButton addButton;
     private final JButton resetButton;
 
-    // Right panel
+    // Right panel components
     private final DefaultTableModel citiesTableModel;
     private final JTable citiesTable;
 
@@ -95,17 +96,25 @@ public class AddCityController {
     private class AddButtonActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            String validationMessage = validateForm();
 
+            if (validationMessage != null)
+                CustomJOptionPane.showErrorDialog(null, validationMessage);
         }
     }
 
     // ========== HELPERS ==========
     private String validateForm() {
         try {
-            double latitude = Double.parseDouble(latitudeField.getText());
             double longitude = Double.parseDouble(longitudeField.getText());
         } catch (NumberFormatException e) {
-            return "Invalid latitude or longitude, please try again.";
+            return "Invalid latitude, please try again.";
+        }
+
+        try {
+            double latitude = Double.parseDouble(latitudeField.getText());
+        } catch (NumberFormatException e) {
+            return "Invalid longitude, please try again.";
         }
 
         return null;

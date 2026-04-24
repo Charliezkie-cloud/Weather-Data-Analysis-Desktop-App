@@ -81,7 +81,6 @@ public class LeftPanel extends JPanel {
 
         // Longitude hint label
         JLabel longitudeHintLabel = new JLabel("Hint: Use negative longitudes for South America");
-        longitudeHintLabel.setAlignmentX(CENTER_ALIGNMENT);
         longitudeHintLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
         formPanel.setLayout(new GridLayout(3, 1, 0, 4));
