@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * The top layout of the main content
- * Extends from JPanel class
+ * Extends from <code>JPanel</code> class
  */
 public class TopPanel extends JPanel {
     public static JButton fetchButton;

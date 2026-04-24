@@ -3,7 +3,7 @@ package WeatherAnalysisApp.Application;
 import java.util.ArrayList;
 
 public class Data {
-    // APPLICATION DATA
+    // ========== APPLICATION DATA ==========
     public static ArrayList<String> CITIES = new ArrayList<>();
     public static ArrayList<String[]> CITIES_DATETIME = new ArrayList<>();
     public static ArrayList<double[]> CITIES_TEMPERATURE = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * The center layout of the main content
- * Extends from JPanel class
+ * Extends from <code>JPanel</code> class
  */
 public class CenterPanel extends JPanel {
     public static DefaultListModel<String> cityListModel = new DefaultListModel<>();

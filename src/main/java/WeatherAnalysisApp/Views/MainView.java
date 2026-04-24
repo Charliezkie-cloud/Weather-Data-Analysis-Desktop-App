@@ -11,7 +11,7 @@ import java.awt.*;
 
 /**
  * The main view of the application
- * Extends from JFrame class
+ * Extends from <code>JFrame</code> class
  */
 public class MainView extends JFrame {
     public MainView() {
@@ -26,7 +26,6 @@ public class MainView extends JFrame {
         setSize(1050, 700);
         setMinimumSize(new Dimension(800, 580));
         setLocationRelativeTo(null);
-        pack();
 
         // ========== Start of Components ==========
 
@@ -58,5 +57,6 @@ public class MainView extends JFrame {
         // ========== End of Components ==========
 
         add(mainContent);
+        pack();
     }
 }

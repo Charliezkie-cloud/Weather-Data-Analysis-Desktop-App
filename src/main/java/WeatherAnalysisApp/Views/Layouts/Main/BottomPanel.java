@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * Bottom layout or the analysis panel
- * Extends from JPanel class
+ * Extends from <code>JPanel</code> class
  */
 public class BottomPanel extends JPanel {
     public BottomPanel() {
