@@ -1,11 +1,14 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Views.AddCityView;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -67,15 +70,17 @@ public class MainController {
         for (String city : Data.CITIES)
             cityListModel.addElement(city);
 
+        // Load listeners
         cityList.addListSelectionListener(new CitiesListSelectionListener());
+        addCityButton.addActionListener(new AddCityActionListener());
     }
 
     // ========== EVENTS ==========
 
     /**
-     * The list selection event listener for JList
+     * The list selection event listener for <code>Cities</code> list
      */
-    public class CitiesListSelectionListener implements ListSelectionListener {
+    private class CitiesListSelectionListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
@@ -115,8 +120,20 @@ public class MainController {
         }
     }
 
+    /**
+     * The action event listener for <code>Add City</code> button
+     */
+    private class AddCityActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            AddCityView addCityView = new AddCityView(MainController.this);
+
+            addCityView.setVisible(true);
+        }
+    }
+
     // ========== HELPERS ==========
-    public void clearTable() {
+    private void clearTable() {
         DefaultTableModel model = (DefaultTableModel) cityDataTableModel;
         model.setRowCount(0);
     }
