@@ -12,15 +12,15 @@ import java.util.ArrayList;
  * Extends from <code>JPanel</code> class
  */
 public class RightPanel extends JPanel {
-    private final ArrayList<City> AVAILABLE_CITIES = new ArrayList<>();
+    private final ArrayList<City> SAMPLE_CITIES = new ArrayList<>();
 
     public static DefaultTableModel citiesTableModel;
     public static JTable citiesTable;
 
     public RightPanel() {
-        loadAvailableCities();
+        loadSampleCities();
 
-        setBorder(BorderFactory.createTitledBorder("Available Cities"));
+        setBorder(BorderFactory.createTitledBorder("Sample Cities"));
 
         // ========== Start of Components ==========
 
@@ -30,7 +30,7 @@ public class RightPanel extends JPanel {
         citiesTableModel.addColumn("Longitude");
         citiesTableModel.addColumn("Latitude");
 
-        for (City city : AVAILABLE_CITIES)
+        for (City city : SAMPLE_CITIES)
             citiesTableModel.addRow(new Object[]{
                     city.name,
                     city.latitude,
@@ -48,15 +48,15 @@ public class RightPanel extends JPanel {
         add(citiesTableScrollPane);
     }
 
-    private void loadAvailableCities() {
-        AVAILABLE_CITIES.add(new City("Quezon City", 14.6488, 121.0509));
-        AVAILABLE_CITIES.add(new City("Manila City", 14.6042, 120.9822));
-        AVAILABLE_CITIES.add(new City("Davao City", 7.0731, 125.6128));
-        AVAILABLE_CITIES.add(new City("Caloocan City", 14.6495, 120.9679));
-        AVAILABLE_CITIES.add(new City("Cebu City", 10.3167, 123.8907));
-        AVAILABLE_CITIES.add(new City("Zamboanga City", 6.9103, 122.0739));
-        AVAILABLE_CITIES.add(new City("Taguig City", 14.5243, 121.0792));
-        AVAILABLE_CITIES.add(new City("Antipolo City", 14.6258, 121.1225));
-        AVAILABLE_CITIES.add(new City("Pasig City", 14.5869, 121.0614));
+    private void loadSampleCities() {
+        SAMPLE_CITIES.add(new City("Quezon City", 14.6488, 121.0509));
+        SAMPLE_CITIES.add(new City("Manila City", 14.6042, 120.9822));
+        SAMPLE_CITIES.add(new City("Davao City", 7.0731, 125.6128));
+        SAMPLE_CITIES.add(new City("Caloocan City", 14.6495, 120.9679));
+        SAMPLE_CITIES.add(new City("Cebu City", 10.3167, 123.8907));
+        SAMPLE_CITIES.add(new City("Zamboanga City", 6.9103, 122.0739));
+        SAMPLE_CITIES.add(new City("Taguig City", 14.5243, 121.0792));
+        SAMPLE_CITIES.add(new City("Antipolo City", 14.6258, 121.1225));
+        SAMPLE_CITIES.add(new City("Pasig City", 14.5869, 121.0614));
     }
 }

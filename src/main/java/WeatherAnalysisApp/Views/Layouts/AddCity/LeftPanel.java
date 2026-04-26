@@ -32,7 +32,6 @@ public class LeftPanel extends JPanel {
 
         // City field
         cityField = new JTextField();
-        cityField.setEditable(false);
         cityField.setAlignmentX(LEFT_ALIGNMENT);
         cityField.setPreferredSize(new Dimension(406, 32));
 

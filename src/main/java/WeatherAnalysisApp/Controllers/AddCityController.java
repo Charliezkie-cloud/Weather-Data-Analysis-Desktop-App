@@ -1,6 +1,9 @@
 package WeatherAnalysisApp.Controllers;
 
-import WeatherAnalysisApp.Models.City;
+import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Models.CityWeatherData;
+import WeatherAnalysisApp.Models.WeatherResponse;
+import WeatherAnalysisApp.Services.Api;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
 
 import javax.swing.*;
@@ -9,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CompletableFuture;
 
 public class AddCityController {
     // Main controller
@@ -96,27 +100,91 @@ public class AddCityController {
     private class AddButtonActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (!Api.isInternetAvailable()) {
+                CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
+                return;
+            }
+
             String validationMessage = validateForm();
 
-            if (validationMessage != null)
+            if (validationMessage != null) {
                 CustomJOptionPane.showErrorDialog(null, validationMessage);
+                return;
+            }
+
+            addButton.setText("Fetching data.");
+
+            Timer timer = new Timer(250, new FetchingDataAnimation());
+            timer.start();
+
+            double latitude = Double.parseDouble(latitudeField.getText());
+            double longitude = Double.parseDouble(longitudeField.getText());
+
+            CompletableFuture<WeatherResponse> res = Api.fetchCityByLatitudeLongitude(latitude, longitude);
+
+            res.thenAccept(data -> {
+                SwingUtilities.invokeLater(() -> {
+                    Data.CITIES_DATA.add(cityWeatherDataBuilder(cityField.getText(), data));
+                    mainController.updateCityList();
+                    timer.stop();
+                    addButton.setText("Add");
+                });
+            });
+        }
+    }
+
+    // ========== TIMERS ANIMATION ==========
+    private class FetchingDataAnimation implements ActionListener {
+        private int loadingLength = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (loadingLength > 3) {
+                addButton.setText("Fetching data.");
+                loadingLength = 0;
+            } else {
+                addButton.setText(addButton.getText() + ".");
+            }
+
+            loadingLength++;
         }
     }
 
     // ========== HELPERS ==========
+    /**
+     * Validates the add city form
+     * @return String if error otherwise null
+     */
     private String validateForm() {
+        if (cityField.getText().trim().isEmpty())
+            return "City is required.";
+
         try {
             double longitude = Double.parseDouble(longitudeField.getText());
         } catch (NumberFormatException e) {
-            return "Invalid latitude, please try again.";
+            return "Invalid latitude value.";
         }
 
         try {
             double latitude = Double.parseDouble(latitudeField.getText());
         } catch (NumberFormatException e) {
-            return "Invalid longitude, please try again.";
+            return "Invalid longitude value.";
         }
 
         return null;
+    }
+
+    /**
+     * Converts weather response to city weather data
+     * @param cityName The name of the city
+     * @param weatherResponse The response data of the weather
+     * @return The <code>CityWeatherData</code> object
+     */
+    private CityWeatherData cityWeatherDataBuilder(String cityName, WeatherResponse weatherResponse) {
+        return new CityWeatherData(
+                cityName,
+                weatherResponse.hourly.time,
+                weatherResponse.hourly.temperature_2m
+        );
     }
 }

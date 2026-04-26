@@ -1,8 +1,10 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Services.Api;
 import WeatherAnalysisApp.Views.AddCityView;
+import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -76,8 +78,8 @@ public class MainController {
         this.statusLabel = statusLabel;
 
         // Load cities to the list
-        for (String city : Data.CITIES)
-            cityListModel.addElement(city);
+        for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
+            cityListModel.addElement(cityWeatherData.name);
 
         // Load listeners
         cityList.addListSelectionListener(new CitiesListSelectionListener());
@@ -98,7 +100,7 @@ public class MainController {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
-                clearTable();
+                clearCityDataTable();
 
                 int selectedIndex = cityList.getSelectedIndex();
                 if (selectedIndex == -1) return;
@@ -107,8 +109,8 @@ public class MainController {
                 double[] temperatures;
 
                 try {
-                    dateTimes = Data.CITIES_DATETIME.get(selectedIndex);
-                    temperatures = Data.CITIES_TEMPERATURE.get(selectedIndex);
+                    dateTimes = Data.CITIES_DATA.get(selectedIndex).time;
+                    temperatures = Data.CITIES_DATA.get(selectedIndex).temperature;
                 } catch (IndexOutOfBoundsException ex) {
                     return;
                 }
@@ -140,25 +142,57 @@ public class MainController {
     private class AddCityActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            AddCityView addCityView = new AddCityView(MainController.this);
+            if (!Api.isInternetAvailable()) {
+                CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
+                return;
+            }
 
+            AddCityView addCityView = new AddCityView(MainController.this);
             addCityView.setVisible(true);
         }
     }
 
     // ========== THREADS ==========
+    /**
+     * Checks the internet and display it in the UI
+     */
     private class CheckInternet implements Runnable {
         public void run() {
-            if (Api.isInternetAvailable())
-                statusLabel.setText("Internet available");
-            else
-                statusLabel.setText("Internet not available");
+            boolean isInternetAvailable = Api.isInternetAvailable();
+
+            SwingUtilities.invokeLater(() -> {
+                if (isInternetAvailable)
+                    statusLabel.setText("Internet available");
+                else
+                    statusLabel.setText("Internet not available");
+            });
         }
     }
 
     // ========== HELPERS ==========
-    private void clearTable() {
-        DefaultTableModel model = (DefaultTableModel) cityDataTableModel;
+    /**
+     * Clears the city weather data table
+     */
+    private void clearCityDataTable() {
+        DefaultTableModel model = (DefaultTableModel) cityDataTable.getModel();
         model.setRowCount(0);
+    }
+
+    /**
+     * Clears the city list
+     */
+    private void clearCityList() {
+        DefaultListModel<String> model = (DefaultListModel<String>) cityList.getModel();
+        model.clear();
+    }
+
+    /**
+     * Updates the city list
+     */
+    public void updateCityList() {
+        clearCityList();
+
+        for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
+            cityListModel.addElement(cityWeatherData.name);
     }
 }

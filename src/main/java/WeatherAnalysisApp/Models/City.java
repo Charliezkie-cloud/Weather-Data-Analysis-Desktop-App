@@ -1,5 +1,8 @@
 package WeatherAnalysisApp.Models;
 
+/**
+ * The model for City
+ */
 public class City {
     public String name;
     public double latitude;

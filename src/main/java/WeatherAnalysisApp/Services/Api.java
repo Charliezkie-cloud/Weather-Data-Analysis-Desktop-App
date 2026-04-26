@@ -9,57 +9,39 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * The class for API services
  */
 public class Api {
-    // ========== START OF TESTS ==========
+    // ========== API REQUESTS ==========
     /**
-     * Runs the test http request
+     * Fetches the weather API <code>open-meteo API</code>
+     * @param latitude The latitude of the city
+     * @param longitude The longitude of the city
+     * @return The <code>WeatherResponse</code> object
      */
-    public static void runTestRequest() {
-        try {
-            String url = "https://api.open-meteo.com/v1/forecast?latitude=10.3167&longitude=123.8907&hourly=temperature_2m&past_days=0&forecast_days=7";
+    public static CompletableFuture<WeatherResponse> fetchCityByLatitudeLongitude(double latitude, double longitude) {
+        String url = apiUrlBuilder(latitude, longitude);
 
-            HttpClient httpClient = HttpClient.newHttpClient();
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
 
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .GET()
-                    .build();
-
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            System.out.println("========== TEST NI CHARLES ==========");
-            System.out.println("Source: Api.runTestRequest()");
-            System.out.println(response);
-            testParse(response.body());
-        } catch (IOException | InterruptedException e) {
-            System.err.println("========== TEST ERROR ==========");
-            System.err.println("Error source: Api.runTestRequest()");
-            System.err.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Runs the test parse from JSON string to object
-     * @param data The data string of the request response
-     */
-    private static void testParse(String data) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            WeatherResponse weatherResponse = objectMapper.readValue(data, WeatherResponse.class);
-
-            System.out.println("========== TEST NI CHARLES ==========");
-            System.out.println("Source: Api.testParse()");
-            System.out.println("Weather response: " + weatherResponse.timezone);
-        } catch (JsonProcessingException e) {
-            System.err.println("========== TEST ERROR ==========");
-            System.err.println("Error from: Api.testParse()");
-            System.err.println(e.getMessage());
-        }
+        return httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
+                .thenApply(res -> {
+                    if (res.statusCode() == 200)
+                        return parseWeatherData(res.body());
+                    else
+                        return null;
+                }).exceptionally(e -> {
+                    System.err.println("Something went wrong while fetching the API.");
+                    System.err.println("Error: " + e.getMessage());
+                    return null;
+                });
     }
 
     // ========== HELPERS ==========
@@ -99,5 +81,21 @@ public class Api {
                 + "&hourly=temperature_2m"
                 + "&past_days=0"
                 + "&forecast_days=7";
+    }
+    
+    /**
+     * Parse the API weather data into a <code>WeatherResponse</code> object
+     * @param weatherData The string data of the weather response
+     * @return The <code>WeatherResponse</code> object
+     */
+    public static WeatherResponse parseWeatherData(String weatherData) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(weatherData, WeatherResponse.class);
+        } catch (JsonProcessingException e) {
+            System.err.println("Something went wrong while parsing the weather data." + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
+            return null;
+        }
     }
 }
