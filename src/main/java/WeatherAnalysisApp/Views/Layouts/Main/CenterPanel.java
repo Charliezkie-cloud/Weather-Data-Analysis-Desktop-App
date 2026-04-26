@@ -11,6 +11,7 @@ import java.awt.*;
  * Extends from <code>JPanel</code> class
  */
 public class CenterPanel extends JPanel {
+    public static JComboBox<String> dataOptionBox;
     public static DefaultListModel<String> cityListModel = new DefaultListModel<>();
     public static JList<String> cityList;
     public static DefaultTableModel cityDataTableModel;
@@ -53,6 +54,11 @@ public class CenterPanel extends JPanel {
             setLayout(new BorderLayout());
             setBorder(BorderFactory.createTitledBorder("Data"));
 
+            String[] dataOptions = {"Hourly", "Daily"};
+
+            // Combo box
+            dataOptionBox = new JComboBox<>(dataOptions);
+
             // Columns
             cityDataTableModel = new DefaultTableModel();
             cityDataTableModel.addColumn("Date & Time");
@@ -61,10 +67,10 @@ public class CenterPanel extends JPanel {
 
             // Table
             cityDataTable = new JTable(cityDataTableModel);
-            cityDataTable.setDefaultRenderer(Object.class, new RowColorRenderer());
             JScrollPane scrollPane = new JScrollPane(cityDataTable);
 
-            add(scrollPane, BorderLayout.CENTER);
+            add(dataOptionBox, BorderLayout.NORTH);
+            add(scrollPane, BorderLayout.SOUTH);
         }
     }
 }

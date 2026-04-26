@@ -1,16 +1,27 @@
 package WeatherAnalysisApp.Models;
 
+import WeatherAnalysisApp.Models.SubModels.DailyPoint;
+import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
+
+import java.util.ArrayList;
+
 /**
  * The model for City Weather Data
  */
 public class CityWeatherData {
     public City city;
-    public String[] time;
-    public double[] temperature;
+    public ArrayList<HourlyPoint> hourlyPoints;
+    public ArrayList<DailyPoint> dailyPoints;
 
-    public CityWeatherData(City city, String[] time, double[] temperature) {
+    public CityWeatherData(City city, ArrayList<HourlyPoint> hourlyPoints, ArrayList<DailyPoint> dailyPoints) {
         this.city = city;
-        this.time = time;
-        this.temperature = temperature;
+
+        hourlyPoints.sort((x, y) -> y.time.compareTo(x.time));
+
+        this.hourlyPoints = hourlyPoints;
+
+        dailyPoints.sort((x, y) -> y.time.compareTo(x.time));
+
+        this.dailyPoints = dailyPoints;
     }
 }

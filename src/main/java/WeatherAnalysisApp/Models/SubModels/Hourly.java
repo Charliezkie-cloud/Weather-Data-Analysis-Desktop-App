@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Models;
+package WeatherAnalysisApp.Models.SubModels;
 
 /**
  * The model for Hourly

@@ -78,6 +78,7 @@ public class Api {
         return "https://api.open-meteo.com/v1/forecast"
                 + "?latitude=" + String.format("%.4f", latitude)
                 + "&longitude=" + String.format("%.4f", longitude)
+                + "&daily=weather_code"
                 + "&hourly=temperature_2m"
                 + "&past_days=0"
                 + "&forecast_days=7";

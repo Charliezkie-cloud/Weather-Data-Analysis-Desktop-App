@@ -5,6 +5,8 @@ import WeatherAnalysisApp.Views.Components.FontRenderer;
 import WeatherAnalysisApp.Views.Layouts.Main.BottomPanel;
 import WeatherAnalysisApp.Views.Layouts.Main.CenterPanel;
 import WeatherAnalysisApp.Views.Layouts.Main.TopPanel;
+import WeatherAnalysisApp.Views.Tabs.Main.MainTab;
+import WeatherAnalysisApp.Views.Tabs.Main.SettingsTab;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,21 +35,23 @@ public class MainView extends JFrame {
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
         mainContent.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
-        TopPanel topPanel = new TopPanel();
-        CenterPanel centerPanel = new CenterPanel();
-        BottomPanel bottomPanel = new BottomPanel();
+        // Main tab
+        JTabbedPane mainTabbedPane = new JTabbedPane();
 
-        mainContent.add(topPanel);
-        mainContent.add(centerPanel);
-        mainContent.add(bottomPanel);
+        // Tabs
+        mainTabbedPane.add("Dashboard", new MainTab());
+        mainTabbedPane.add("Settings", new SettingsTab());
 
+        mainContent.add(mainTabbedPane);
+
+        // Main controller initialization
         new MainController(
                 TopPanel.fetchButton,
                 TopPanel.analyzeDataButton,
-                TopPanel.refreshButton,
                 TopPanel.clearButton,
                 TopPanel.addCityButton,
 
+                CenterPanel.dataOptionBox,
                 CenterPanel.cityListModel,
                 CenterPanel.cityList,
                 CenterPanel.cityDataTableModel,

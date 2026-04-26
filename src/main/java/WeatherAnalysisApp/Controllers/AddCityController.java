@@ -1,8 +1,8 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Services.Helpers;
 import WeatherAnalysisApp.Models.City;
-import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.Api;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.CompletableFuture;
 
 public class AddCityController {
+    // Add City view
+    private final JFrame addCityView;
+
     // Main controller
     private final MainController mainController;
 
@@ -31,6 +34,7 @@ public class AddCityController {
     private final JTable citiesTable;
 
     public AddCityController(
+            JFrame addCityView,
             MainController mainController,
 
             DefaultTableModel citiesTableModel,
@@ -42,6 +46,9 @@ public class AddCityController {
             JButton addButton,
             JButton resetButton
     ) {
+        // Load add city view frame
+        this.addCityView = addCityView;
+
         // Load main controller
         this.mainController = mainController;
 
@@ -113,7 +120,7 @@ public class AddCityController {
                 return;
             }
 
-            addButton.setText("Fetching data.");
+            addButton.setText("Fetching.");
 
             Timer timer = new Timer(250, new FetchingDataAnimation());
             timer.start();
@@ -126,10 +133,17 @@ public class AddCityController {
 
             res.thenAccept(data -> {
                 SwingUtilities.invokeLater(() -> {
-                    Data.CITIES_DATA.add(cityWeatherDataBuilder(new City(cityName, latitude, longitude), data));
+                    Data.CITIES_DATA.add(Helpers.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
+
                     mainController.updateCityList();
                     timer.stop();
                     addButton.setText("Add");
+
+                    addCityView.dispose();
+                    CustomJOptionPane.showSuccessDialog(
+                            null,
+                            String.format("%s latest weather data has successfully been added!", cityName)
+                    );
                 });
             });
         }
@@ -142,7 +156,7 @@ public class AddCityController {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (loadingLength > 3) {
-                addButton.setText("Fetching data.");
+                addButton.setText("Fetching.");
                 loadingLength = 0;
             } else {
                 addButton.setText(addButton.getText() + ".");
@@ -174,19 +188,5 @@ public class AddCityController {
         }
 
         return null;
-    }
-
-    /**
-     * Converts weather response to city weather data
-     * @param city The <code>City</code> object of the city
-     * @param weatherResponse The response data of the weather
-     * @return The <code>CityWeatherData</code> object
-     */
-    private CityWeatherData cityWeatherDataBuilder(City city, WeatherResponse weatherResponse) {
-        return new CityWeatherData(
-                city,
-                weatherResponse.hourly.time,
-                weatherResponse.hourly.temperature_2m
-        );
     }
 }

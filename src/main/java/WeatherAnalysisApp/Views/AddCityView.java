@@ -39,6 +39,7 @@ public class AddCityView extends JFrame {
         mainContent.add(rightPanel, BorderLayout.EAST);
 
         new AddCityController(
+                this,
                 mainController,
 
                 RightPanel.citiesTableModel,

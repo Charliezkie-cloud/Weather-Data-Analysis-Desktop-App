@@ -1,5 +1,10 @@
 package WeatherAnalysisApp.Models;
 
+import WeatherAnalysisApp.Models.SubModels.Daily;
+import WeatherAnalysisApp.Models.SubModels.DailyUnits;
+import WeatherAnalysisApp.Models.SubModels.Hourly;
+import WeatherAnalysisApp.Models.SubModels.HourlyUnits;
+
 /**
  * The model for weather response
  */
@@ -12,6 +17,11 @@ public class WeatherResponse {
     public String timezone_abbreviation;
     public int elevation;
 
+    // Hourly units
     public HourlyUnits hourly_units;
     public Hourly hourly;
+
+    // Daily units
+    public DailyUnits daily_units;
+    public Daily daily;
 }

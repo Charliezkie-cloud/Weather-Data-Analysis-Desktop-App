@@ -10,7 +10,6 @@ import java.awt.*;
 public class TopPanel extends JPanel {
     public static JButton fetchButton;
     public static JButton analyzeDataButton;
-    public static JButton refreshButton;
     public static JButton clearButton;
     public static JButton addCityButton;
 
@@ -25,9 +24,6 @@ public class TopPanel extends JPanel {
         // Analyze data button
         analyzeDataButton = new JButton("Analyze Data");
 
-        // Refresh button
-        refreshButton = new JButton("Refresh");
-
         // Clear button
         clearButton = new JButton("Clear");
 
@@ -38,7 +34,6 @@ public class TopPanel extends JPanel {
 
         add(fetchButton);
         add(analyzeDataButton);
-        add(refreshButton);
         add(clearButton);
         add(addCityButton);
     }
