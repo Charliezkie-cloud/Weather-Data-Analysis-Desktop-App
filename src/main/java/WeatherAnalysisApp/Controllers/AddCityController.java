@@ -1,6 +1,7 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.Api;
@@ -117,6 +118,7 @@ public class AddCityController {
             Timer timer = new Timer(250, new FetchingDataAnimation());
             timer.start();
 
+            String cityName = cityField.getText();
             double latitude = Double.parseDouble(latitudeField.getText());
             double longitude = Double.parseDouble(longitudeField.getText());
 
@@ -124,7 +126,7 @@ public class AddCityController {
 
             res.thenAccept(data -> {
                 SwingUtilities.invokeLater(() -> {
-                    Data.CITIES_DATA.add(cityWeatherDataBuilder(cityField.getText(), data));
+                    Data.CITIES_DATA.add(cityWeatherDataBuilder(new City(cityName, latitude, longitude), data));
                     mainController.updateCityList();
                     timer.stop();
                     addButton.setText("Add");
@@ -176,13 +178,13 @@ public class AddCityController {
 
     /**
      * Converts weather response to city weather data
-     * @param cityName The name of the city
+     * @param city The <code>City</code> object of the city
      * @param weatherResponse The response data of the weather
      * @return The <code>CityWeatherData</code> object
      */
-    private CityWeatherData cityWeatherDataBuilder(String cityName, WeatherResponse weatherResponse) {
+    private CityWeatherData cityWeatherDataBuilder(City city, WeatherResponse weatherResponse) {
         return new CityWeatherData(
-                cityName,
+                city,
                 weatherResponse.hourly.time,
                 weatherResponse.hourly.temperature_2m
         );

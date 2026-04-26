@@ -79,7 +79,7 @@ public class MainController {
 
         // Load cities to the list
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
-            cityListModel.addElement(cityWeatherData.name);
+            cityListModel.addElement(cityWeatherData.city.name);
 
         // Load listeners
         cityList.addListSelectionListener(new CitiesListSelectionListener());
@@ -193,6 +193,6 @@ public class MainController {
         clearCityList();
 
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
-            cityListModel.addElement(cityWeatherData.name);
+            cityListModel.addElement(cityWeatherData.city.name);
     }
 }
