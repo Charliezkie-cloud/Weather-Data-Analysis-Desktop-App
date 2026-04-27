@@ -265,13 +265,7 @@ public class MainController {
         for (HourlyPoint hourlyPoint : Data.CITIES_DATA.get(selectedCityIndex).hourlyPoints) {
             LocalDateTime localDateTime = LocalDateTime.parse(hourlyPoint.time);
 
-            String status;
-            if (hourlyPoint.temperature <= 0) status = "Freezing";
-            else if (hourlyPoint.temperature <= 10) status = "Cold";
-            else if (hourlyPoint.temperature <= 20) status = "Cool";
-            else if (hourlyPoint.temperature <= 30) status = "Warm";
-            else if (hourlyPoint.temperature <= 35) status = "Hot";
-            else status = "Very Hot";
+            String status = Helpers.getTemperatureStatus(hourlyPoint.temperature);
 
             cityDataTableModel.addRow(new Object[]{
                     localDateTime.format(dateTimeFormatter),
@@ -296,9 +290,11 @@ public class MainController {
         for (DailyPoint dailyPoint : Data.CITIES_DATA.get(selectedCityIndex).dailyPoints) {
             LocalDate localDate = LocalDate.parse(dailyPoint.time);
 
+            String humanReadableCode = Helpers.getWeatherCodeString(dailyPoint.weather_code);
+
             cityDataTableModel.addRow(new Object[]{
                     localDate.format(dateFormatter),
-                    dailyPoint.weather_code
+                    humanReadableCode
             });
         }
     }
