@@ -28,7 +28,9 @@ public class Helpers {
         for (int i = 0; i < weatherResponse.daily.time.length; i++)
             dailyPoints.add(new DailyPoint(
                     weatherResponse.daily.time[i],
-                    weatherResponse.daily.weather_code[i]
+                    weatherResponse.daily.weather_code[i],
+                    weatherResponse.daily.temperature_2m_max[i],
+                    weatherResponse.daily.temperature_2m_min[i]
             ));
 
         return new CityWeatherData(city, hourlyPoints, dailyPoints);
@@ -43,7 +45,7 @@ public class Helpers {
      * @param dailyWeatherCodes The <code>Daily Weather Codes</code> array
      * @return The fully built <code>CityWeatherData</code> object ;D
      */
-    public static CityWeatherData buildCityWeatherData(City city, String[] hourlyTimes, double[] hourlyTemperatures, String[] dailyTimes, int[] dailyWeatherCodes) {
+    public static CityWeatherData buildCityWeatherData(City city, String[] hourlyTimes, double[] hourlyTemperatures, String[] dailyTimes, int[] dailyWeatherCodes, double[] temperature2mMax, double[] temperature2mMin) {
         ArrayList<HourlyPoint> hourlyPoints = new ArrayList<>();
         ArrayList<DailyPoint> dailyPoints = new ArrayList<>();
 
@@ -51,7 +53,12 @@ public class Helpers {
             hourlyPoints.add(new HourlyPoint(hourlyTimes[i], hourlyTemperatures[i]));
 
         for (int i = 0; i < dailyTimes.length; i++)
-            dailyPoints.add(new DailyPoint(dailyTimes[i], dailyWeatherCodes[i]));
+            dailyPoints.add(new DailyPoint(
+                    dailyTimes[i],
+                    dailyWeatherCodes[i],
+                    temperature2mMax[i],
+                    temperature2mMin[i]
+            ));
 
         return new CityWeatherData(city, hourlyPoints, dailyPoints);
     }

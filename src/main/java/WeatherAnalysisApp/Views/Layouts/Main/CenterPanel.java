@@ -1,7 +1,5 @@
 package WeatherAnalysisApp.Views.Layouts.Main;
 
-import WeatherAnalysisApp.Views.Components.RowColorRenderer;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;

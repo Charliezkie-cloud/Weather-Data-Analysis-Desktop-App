@@ -8,6 +8,7 @@ import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.Api;
 import WeatherAnalysisApp.Services.Helpers;
 import WeatherAnalysisApp.Views.AddCityView;
+import WeatherAnalysisApp.Views.AnalyzeDataView;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
 import WeatherAnalysisApp.Views.Components.RowColorRenderer;
 
@@ -94,6 +95,8 @@ public class MainController {
         addCityButton.addActionListener(new AddCityActionListener());
         fetchButton.addActionListener(new FetchButtonActionListener());
         dataOptionBox.addActionListener(new DataOptionBoxActionListener());
+        clearButton.addActionListener(new ClearButtonActionListener());
+        analyzeDataButton.addActionListener(new AnalyzeDataButtonActionListener());
 
         // Load threads
         Thread checkInternetThread = new Thread(new CheckInternet());
@@ -181,6 +184,9 @@ public class MainController {
         }
     }
 
+    /**
+     * The action listener for the Data Option Box, the Daily or Hourly one
+     */
     private class DataOptionBoxActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -188,6 +194,47 @@ public class MainController {
             if (selectedIndex == -1) return;
 
             populateCityDataTable(selectedIndex);
+        }
+    }
+
+    /**
+     * Clears the application data
+     */
+    private class ClearButtonActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int UserOption = CustomJOptionPane.showConfirmDialog(
+                    null,
+                    "Are you sure you want to clear the current data? This action cannot be undone.",
+                    "Confirmation",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+            if (UserOption != JOptionPane.OK_OPTION)
+                return;
+
+            Data.CITIES_DATA.clear();
+            clearCityList();
+            clearCityDataTable();
+        }
+    }
+
+    /**
+     * Opens the analysis data view and display the analyzed data.
+     */
+    private class AnalyzeDataButtonActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int selectedIndex = cityList.getSelectedIndex();
+
+            if (selectedIndex == -1) {
+                CustomJOptionPane.showErrorDialog(null, "Please select a city first.");
+                return;
+            }
+
+            AnalyzeDataView analyzeDataView = new AnalyzeDataView(Data.CITIES_DATA.get(selectedIndex));
+            analyzeDataView.setVisible(true);
         }
     }
 
