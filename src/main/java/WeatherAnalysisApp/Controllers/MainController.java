@@ -21,14 +21,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
 
 public class MainController {
-    // Date time and date formatter
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-
     // Top panel components
     private final JButton fetchButton;
     private final JButton analyzeDataButton;
@@ -315,7 +310,7 @@ public class MainController {
             String status = Helpers.getTemperatureStatus(hourlyPoint.temperature);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDateTime.format(dateTimeFormatter),
+                    localDateTime.format(Helpers.DATE_TIME_FORMATTER),
                     String.format("%.1f°C", hourlyPoint.temperature),
                     status
             });
@@ -340,7 +335,7 @@ public class MainController {
             String humanReadableCode = Helpers.getWeatherCodeString(dailyPoint.weather_code);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDate.format(dateFormatter),
+                    localDate.format(Helpers.DATE_FORMATTER),
                     humanReadableCode
             });
         }

@@ -6,9 +6,14 @@ import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
 import WeatherAnalysisApp.Models.WeatherResponse;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Helpers {
+    // Date time and date formatter
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+
     /**
      * Converts weather response to city weather data
      * @param city The <code>City</code> object of the city
