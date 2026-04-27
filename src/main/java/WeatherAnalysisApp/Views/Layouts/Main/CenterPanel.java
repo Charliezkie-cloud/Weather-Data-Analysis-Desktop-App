@@ -68,7 +68,7 @@ public class CenterPanel extends JPanel {
             JScrollPane scrollPane = new JScrollPane(cityDataTable);
 
             add(dataOptionBox, BorderLayout.NORTH);
-            add(scrollPane, BorderLayout.SOUTH);
+            add(scrollPane, BorderLayout.CENTER);
         }
     }
 }

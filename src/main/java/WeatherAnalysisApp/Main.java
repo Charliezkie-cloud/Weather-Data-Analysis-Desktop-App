@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Data.initializeSampleCityData();
+        // Data.initializeSampleCityData();
 
         SwingUtilities.invokeLater(() -> {
             FlatMacLightLaf.setup();
