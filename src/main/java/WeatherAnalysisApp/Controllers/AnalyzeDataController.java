@@ -3,7 +3,6 @@ package WeatherAnalysisApp.Controllers;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Services.Helpers;
-import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
@@ -20,7 +19,6 @@ public class AnalyzeDataController {
             // Center panel components
             XYSeries maximumTempData,
             XYSeries minimumTempData,
-            JFreeChart mainLineChart,
 
             // Bottom panel components
             JLabel cityLabel,

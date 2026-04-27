@@ -155,11 +155,11 @@ public class MainController {
             timer.start();
 
             CityWeatherData selectedCityWeatherData = Data.CITIES_DATA.get(selectedIndex);
-
             CompletableFuture<WeatherResponse> res = Api.fetchCityByLatitudeLongitude(
                     selectedCityWeatherData.city.latitude,
                     selectedCityWeatherData.city.longitude
             );
+
             res.thenAccept(data -> {
                 Data.CITIES_DATA.set(selectedIndex, Helpers.weatherResponseToCityWeatherData(
                         selectedCityWeatherData.city,
@@ -173,8 +173,11 @@ public class MainController {
 
                 timer.stop();
                 fetchButton.setText("Fetch");
-                
-                CustomJOptionPane.showSuccessDialog(null, String.format("%s latest weather data has successfully been updated!", selectedCityWeatherData.city.name));
+                CustomJOptionPane.showSuccessDialog(
+                        null,
+                        String.format("%s latest weather data has successfully been updated!",
+                        selectedCityWeatherData.city.name
+                ));
             });
         }
     }
@@ -306,7 +309,6 @@ public class MainController {
 
         for (HourlyPoint hourlyPoint : Data.CITIES_DATA.get(selectedCityIndex).hourlyPoints) {
             LocalDateTime localDateTime = LocalDateTime.parse(hourlyPoint.time);
-
             String status = Helpers.getTemperatureStatus(hourlyPoint.temperature);
 
             cityDataTableModel.addRow(new Object[]{
@@ -331,7 +333,6 @@ public class MainController {
 
         for (DailyPoint dailyPoint : Data.CITIES_DATA.get(selectedCityIndex).dailyPoints) {
             LocalDate localDate = LocalDate.parse(dailyPoint.time);
-
             String humanReadableCode = Helpers.getWeatherCodeString(dailyPoint.weather_code);
 
             cityDataTableModel.addRow(new Object[]{

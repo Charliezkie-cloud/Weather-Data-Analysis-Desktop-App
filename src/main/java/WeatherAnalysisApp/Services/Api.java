@@ -24,7 +24,6 @@ public class Api {
      */
     public static CompletableFuture<WeatherResponse> fetchCityByLatitudeLongitude(double latitude, double longitude) {
         String url = apiUrlBuilder(latitude, longitude);
-
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -35,8 +34,7 @@ public class Api {
                 .thenApply(res -> {
                     if (res.statusCode() == 200)
                         return parseWeatherData(res.body());
-                    else
-                        return null;
+                    return null;
                 }).exceptionally(e -> {
                     System.err.println("Something went wrong while fetching the API.");
                     System.err.println("Error: " + e.getMessage());
@@ -52,14 +50,11 @@ public class Api {
     public static boolean isInternetAvailable() {
         try {
             String url = "https://www.google.com/generate_204";
-
             HttpClient httpClient = HttpClient.newHttpClient();
-
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .GET()
                     .build();
-
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             return response.statusCode() == 204;

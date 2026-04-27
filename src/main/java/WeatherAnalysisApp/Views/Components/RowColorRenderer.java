@@ -23,8 +23,9 @@ public class RowColorRenderer extends DefaultTableCellRenderer {
      */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         double temperature = Double.parseDouble(table.getValueAt(row, 1).toString().replaceAll("[^0-9.-]", ""));
+
+        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         if (!isSelected)
             component.setBackground(getColor(temperature));

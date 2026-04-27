@@ -1,5 +1,8 @@
 package WeatherAnalysisApp.Models.SubModels;
 
+/**
+ * The model for Daily Point
+ */
 public class DailyPoint {
     public String time;
     public int weather_code;

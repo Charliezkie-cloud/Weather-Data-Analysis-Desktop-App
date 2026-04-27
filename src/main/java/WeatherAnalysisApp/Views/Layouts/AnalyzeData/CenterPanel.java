@@ -1,7 +1,5 @@
 package WeatherAnalysisApp.Views.Layouts.AnalyzeData;
 
-import WeatherAnalysisApp.Models.CityWeatherData;
-import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Views.Components.ChartRenderer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -21,7 +19,6 @@ import java.awt.*;
 public class CenterPanel extends JPanel {
     public static XYSeries maximumTempData;
     public static XYSeries minimumTempData;
-    public static JFreeChart mainLineChart;
 
     public CenterPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -39,7 +36,7 @@ public class CenterPanel extends JPanel {
         dataset.addSeries(minimumTempData);
 
         // XY Line chart
-        mainLineChart = ChartFactory.createXYLineChart("Temperatures for the last 7 days.", "Day", "°C", dataset);
+        JFreeChart mainLineChart = ChartFactory.createXYLineChart("Temperatures for the last 7 days.", "Day", "°C", dataset);
 
         // Chart plot
         XYPlot mainLineChartXYPlot = mainLineChart.getXYPlot();

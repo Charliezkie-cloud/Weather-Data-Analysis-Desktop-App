@@ -84,6 +84,7 @@ public class Helpers {
 
     /**
      * Converts weather code into a human-readable string
+     * WMO CODES: https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
      * @param weatherCode The weather code of the city
      * @return The weather in string
      */

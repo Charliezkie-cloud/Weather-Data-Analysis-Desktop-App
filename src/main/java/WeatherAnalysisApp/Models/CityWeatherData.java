@@ -17,11 +17,9 @@ public class CityWeatherData {
         this.city = city;
 
         hourlyPoints.sort((x, y) -> y.time.compareTo(x.time));
-
         this.hourlyPoints = hourlyPoints;
 
         dailyPoints.sort((x, y) -> y.time.compareTo(x.time));
-
         this.dailyPoints = dailyPoints;
     }
 }

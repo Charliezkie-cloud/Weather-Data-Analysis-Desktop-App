@@ -35,7 +35,7 @@ public class MainView extends JFrame {
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
         mainContent.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
-        // Main tab
+        // Main tab pane
         JTabbedPane mainTabbedPane = new JTabbedPane();
 
         // Tabs

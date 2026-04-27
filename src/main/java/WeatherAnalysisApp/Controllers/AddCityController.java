@@ -80,6 +80,7 @@ public class AddCityController {
                 int row = citiesTable.getSelectedRow();
 
                 String cityName = citiesTable.getValueAt(row, 0).toString();
+
                 double latitude = Double.parseDouble(citiesTable.getValueAt(row, 1).toString());
                 double longitude = Double.parseDouble(citiesTable.getValueAt(row, 2).toString());
 
@@ -128,7 +129,6 @@ public class AddCityController {
             String cityName = cityField.getText();
             double latitude = Double.parseDouble(latitudeField.getText());
             double longitude = Double.parseDouble(longitudeField.getText());
-
             CompletableFuture<WeatherResponse> res = Api.fetchCityByLatitudeLongitude(latitude, longitude);
 
             res.thenAccept(data -> {

@@ -12,8 +12,8 @@ public class FontRenderer {
      */
     public static void setGlobalFont(Font font) {
         FontUIResource fontUIResource = new FontUIResource(font);
-
         Enumeration<Object> keys = UIManager.getDefaults().keys();
+
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
