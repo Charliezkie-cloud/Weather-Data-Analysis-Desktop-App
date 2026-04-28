@@ -1,9 +1,11 @@
 package WeatherAnalysisApp.Models.SubModels;
 
+import java.io.Serializable;
+
 /**
  * The model for Daily Point
  */
-public class DailyPoint {
+public class DailyPoint implements Serializable {
     public String time;
     public int weather_code;
     public double temperature_2m_max;

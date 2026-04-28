@@ -37,7 +37,7 @@ public class CenterPanel extends JPanel {
         dataset.addSeries(minimumTempData);
 
         // XY Line chart
-        JFreeChart mainLineChart = ChartFactory.createXYLineChart("Temperatures for the last 7 days.", "Day", "°C", dataset);
+        JFreeChart mainLineChart = ChartFactory.createXYLineChart("Temperature Trends Over the Last 7 Days", "Day", "°C", dataset);
 
         // Chart plot
         XYPlot mainLineChartXYPlot = mainLineChart.getXYPlot();

@@ -9,7 +9,7 @@ import WeatherAnalysisApp.Models.WeatherResponse;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Helpers {
+public class HelpersService {
     // Date time and date formatter
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy");

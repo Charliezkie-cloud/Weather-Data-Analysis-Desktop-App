@@ -2,7 +2,7 @@ package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
-import WeatherAnalysisApp.Services.Helpers;
+import WeatherAnalysisApp.Services.HelpersService;
 import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
@@ -86,15 +86,12 @@ public class AnalyzeDataController {
         LocalDate startDate = LocalDate.parse(selectedCityWeatherData.dailyPoints.getFirst().time);
         LocalDate endDate = LocalDate.parse(selectedCityWeatherData.dailyPoints.getLast().time);
 
-        // Calculate the average temperature
-        double averageDate = 0;
-
         // Set the summary details
         cityLabel.setText(selectedCityWeatherData.city.name);
         periodLabel.setText(String.format(
                 "%s to %s",
-                startDate.format(Helpers.DATE_FORMATTER),
-                endDate.format(Helpers.DATE_FORMATTER)
+                endDate.format(HelpersService.DATE_FORMATTER),
+                startDate.format(HelpersService.DATE_FORMATTER)
         ));
         averageTemperatureLabel.setText(String.format("%.2f °C", averageTemperature));
         highestTemperatureLabel.setText(String.format("%.2f °C", highestMaxTemperature));

@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * The class for API services
  */
-public class Api {
+public class ApiService {
     // ========== API REQUESTS ==========
     /**
      * Fetches the weather API <code>open-meteo API</code>
@@ -75,8 +75,8 @@ public class Api {
                 + "&longitude=" + String.format("%.4f", longitude)
                 + "&daily=weather_code,temperature_2m_max,temperature_2m_min"
                 + "&hourly=temperature_2m"
-                + "&past_days=0"
-                + "&forecast_days=7";
+                + "&past_days=6"
+                + "&forecast_days=1";
     }
     
     /**

@@ -3,12 +3,13 @@ package WeatherAnalysisApp.Models;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The model for City Weather Data
  */
-public class CityWeatherData {
+public class CityWeatherData implements Serializable {
     public City city;
     public ArrayList<HourlyPoint> hourlyPoints;
     public ArrayList<DailyPoint> dailyPoints;

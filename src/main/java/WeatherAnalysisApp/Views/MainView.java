@@ -46,6 +46,7 @@ public class MainView extends JFrame {
 
         // Main controller initialization
         new MainController(
+                this,
                 TopPanel.fetchButton,
                 TopPanel.analyzeDataButton,
                 TopPanel.clearButton,

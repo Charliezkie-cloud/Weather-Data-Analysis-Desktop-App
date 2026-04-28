@@ -1,9 +1,11 @@
 package WeatherAnalysisApp.Models.SubModels;
 
+import java.io.Serializable;
+
 /**
  * The model for Weather Point
  */
-public class HourlyPoint {
+public class HourlyPoint implements Serializable {
     public String time;
     public double temperature;
 

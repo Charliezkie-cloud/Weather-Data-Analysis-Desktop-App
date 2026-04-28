@@ -5,8 +5,9 @@ import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
 import WeatherAnalysisApp.Models.WeatherResponse;
-import WeatherAnalysisApp.Services.Api;
-import WeatherAnalysisApp.Services.Helpers;
+import WeatherAnalysisApp.Services.ApiService;
+import WeatherAnalysisApp.Services.CachingService;
+import WeatherAnalysisApp.Services.HelpersService;
 import WeatherAnalysisApp.Views.AddCityView;
 import WeatherAnalysisApp.Views.AnalyzeDataView;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
@@ -19,11 +20,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 public class MainController {
+    // Parent component
+    private final JFrame mainViewFrame;
+
     // Top panel components
     private final JButton fetchButton;
     private final JButton analyzeDataButton;
@@ -42,6 +48,7 @@ public class MainController {
 
     /**
      * The constructor of the program
+     * @param mainViewFrame Main view frame - <code>JFrame</code>
      * @param fetchButton Fetch button - <code>Top component</code>
      * @param analyzeDataButton Analyze button - <code>Top component</code>
      * @param clearButton Clear button - <code>Top component</code>
@@ -52,6 +59,8 @@ public class MainController {
      * @param cityDataTable City data jtable - <code>Center component</code>
      */
     public MainController(
+            JFrame mainViewFrame,
+
             JButton fetchButton,
             JButton analyzeDataButton,
             JButton clearButton,
@@ -65,6 +74,9 @@ public class MainController {
 
             JLabel statusLabel
     ) {
+        // Load the parent component
+        this.mainViewFrame = mainViewFrame;
+
         // Load top panel components
         this.fetchButton = fetchButton;
         this.analyzeDataButton = analyzeDataButton;
@@ -86,6 +98,7 @@ public class MainController {
             cityListModel.addElement(cityWeatherData.city.name);
 
         // Load listeners
+        mainViewFrame.addWindowListener(new MainViewWindowAdapter());
         cityList.addListSelectionListener(new CitiesListSelectionListener());
         addCityButton.addActionListener(new AddCityActionListener());
         fetchButton.addActionListener(new FetchButtonActionListener());
@@ -122,7 +135,7 @@ public class MainController {
     private class AddCityActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!Api.isInternetAvailable()) {
+            if (!ApiService.isInternetAvailable()) {
                 CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
                 return;
             }
@@ -138,7 +151,7 @@ public class MainController {
     private class FetchButtonActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!Api.isInternetAvailable()) {
+            if (!ApiService.isInternetAvailable()) {
                 CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
                 return;
             }
@@ -150,18 +163,19 @@ public class MainController {
             }
 
             fetchButton.setText("Fetching.");
+            fetchButton.setEnabled(false);
 
             Timer timer = new Timer(250, new FetchDataAnimation());
             timer.start();
 
             CityWeatherData selectedCityWeatherData = Data.CITIES_DATA.get(selectedIndex);
-            CompletableFuture<WeatherResponse> res = Api.fetchCityByLatitudeLongitude(
+            CompletableFuture<WeatherResponse> res = ApiService.fetchCityByLatitudeLongitude(
                     selectedCityWeatherData.city.latitude,
                     selectedCityWeatherData.city.longitude
             );
 
             res.thenAccept(data -> {
-                Data.CITIES_DATA.set(selectedIndex, Helpers.weatherResponseToCityWeatherData(
+                Data.CITIES_DATA.set(selectedIndex, HelpersService.weatherResponseToCityWeatherData(
                         selectedCityWeatherData.city,
                         data
                 ));
@@ -173,6 +187,7 @@ public class MainController {
 
                 timer.stop();
                 fetchButton.setText("Fetch");
+                fetchButton.setEnabled(true);
                 CustomJOptionPane.showSuccessDialog(
                         null,
                         String.format("%s latest weather data has successfully been updated!",
@@ -203,7 +218,7 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             int UserOption = CustomJOptionPane.showConfirmDialog(
                     null,
-                    "Are you sure you want to clear the current data? This action cannot be undone.",
+                    "Are you sure you want to clear the current weather data? This action cannot be undone.",
                     "Confirmation",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.WARNING_MESSAGE
@@ -215,6 +230,7 @@ public class MainController {
             Data.CITIES_DATA.clear();
             clearCityList();
             clearCityDataTable();
+            CachingService.deleteWeatherData();
         }
     }
 
@@ -236,13 +252,36 @@ public class MainController {
         }
     }
 
+    /**
+     * The adapter of the main window
+     */
+    private class MainViewWindowAdapter extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            int confirmation = CustomJOptionPane.showConfirmDialog(
+                    null,
+                    "Do you want to save your current weather data?",
+                    "Confirmation",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            if (confirmation != JOptionPane.OK_OPTION)
+                return;
+
+            CachingService.writeApplicationData();
+
+            super.windowClosing(e);
+        }
+    }
+
     // ========== THREADS ==========
     /**
      * Checks the internet and display it in the UI
      */
     private class CheckInternet implements Runnable {
         public void run() {
-            boolean isInternetAvailable = Api.isInternetAvailable();
+            boolean isInternetAvailable = ApiService.isInternetAvailable();
 
             SwingUtilities.invokeLater(() -> {
                 if (isInternetAvailable)
@@ -309,10 +348,10 @@ public class MainController {
 
         for (HourlyPoint hourlyPoint : Data.CITIES_DATA.get(selectedCityIndex).hourlyPoints) {
             LocalDateTime localDateTime = LocalDateTime.parse(hourlyPoint.time);
-            String status = Helpers.getTemperatureStatus(hourlyPoint.temperature);
+            String status = HelpersService.getTemperatureStatus(hourlyPoint.temperature);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDateTime.format(Helpers.DATE_TIME_FORMATTER),
+                    localDateTime.format(HelpersService.DATE_TIME_FORMATTER),
                     String.format("%.1f°C", hourlyPoint.temperature),
                     status
             });
@@ -333,10 +372,10 @@ public class MainController {
 
         for (DailyPoint dailyPoint : Data.CITIES_DATA.get(selectedCityIndex).dailyPoints) {
             LocalDate localDate = LocalDate.parse(dailyPoint.time);
-            String humanReadableCode = Helpers.getWeatherCodeString(dailyPoint.weather_code);
+            String humanReadableCode = HelpersService.getWeatherCodeString(dailyPoint.weather_code);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDate.format(Helpers.DATE_FORMATTER),
+                    localDate.format(HelpersService.DATE_FORMATTER),
                     humanReadableCode
             });
         }

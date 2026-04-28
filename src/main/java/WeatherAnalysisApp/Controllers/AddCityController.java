@@ -1,10 +1,10 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
-import WeatherAnalysisApp.Services.Helpers;
+import WeatherAnalysisApp.Services.HelpersService;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.WeatherResponse;
-import WeatherAnalysisApp.Services.Api;
+import WeatherAnalysisApp.Services.ApiService;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
 
 import javax.swing.*;
@@ -109,7 +109,7 @@ public class AddCityController {
     private class AddButtonActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!Api.isInternetAvailable()) {
+            if (!ApiService.isInternetAvailable()) {
                 CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
                 return;
             }
@@ -122,24 +122,26 @@ public class AddCityController {
             }
 
             addButton.setText("Fetching.");
+            addButton.setEnabled(false);
 
-            Timer timer = new Timer(250, new FetchingDataAnimation());
+            Timer timer = new Timer(250, new AddDataAnimation());
             timer.start();
 
             String cityName = cityField.getText();
             double latitude = Double.parseDouble(latitudeField.getText());
             double longitude = Double.parseDouble(longitudeField.getText());
-            CompletableFuture<WeatherResponse> res = Api.fetchCityByLatitudeLongitude(latitude, longitude);
+            CompletableFuture<WeatherResponse> res = ApiService.fetchCityByLatitudeLongitude(latitude, longitude);
 
             res.thenAccept(data -> {
                 SwingUtilities.invokeLater(() -> {
-                    Data.CITIES_DATA.add(Helpers.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
+                    Data.CITIES_DATA.add(HelpersService.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
 
                     mainController.updateCityList();
                     timer.stop();
                     addButton.setText("Add");
-
+                    addButton.setEnabled(true);
                     addCityView.dispose();
+
                     CustomJOptionPane.showSuccessDialog(
                             null,
                             String.format("%s latest weather data has successfully been added!", cityName)
@@ -150,7 +152,7 @@ public class AddCityController {
     }
 
     // ========== TIMERS ANIMATION ==========
-    private class FetchingDataAnimation implements ActionListener {
+    private class AddDataAnimation implements ActionListener {
         private int loadingLength = 0;
 
         @Override

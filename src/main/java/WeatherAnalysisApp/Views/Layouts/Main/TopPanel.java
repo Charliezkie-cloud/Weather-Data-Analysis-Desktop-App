@@ -25,7 +25,7 @@ public class TopPanel extends JPanel {
         analyzeDataButton = new JButton("Analyze Data");
 
         // Clear button
-        clearButton = new JButton("Clear");
+        clearButton = new JButton("Clear Data");
 
         // Add city button
         addCityButton = new JButton("Add City");
