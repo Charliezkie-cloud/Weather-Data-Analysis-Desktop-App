@@ -4,6 +4,7 @@ import WeatherAnalysisApp.Views.Components.ChartRenderer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
@@ -40,6 +41,8 @@ public class CenterPanel extends JPanel {
 
         // Chart plot
         XYPlot mainLineChartXYPlot = mainLineChart.getXYPlot();
+        NumberAxis mainChartXAxis = (NumberAxis) mainLineChartXYPlot.getDomainAxis();
+        mainChartXAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         // Chart renderer
         XYLineAndShapeRenderer mainChartRenderer = ChartRenderer.CustomXYLineChartRenderer();
