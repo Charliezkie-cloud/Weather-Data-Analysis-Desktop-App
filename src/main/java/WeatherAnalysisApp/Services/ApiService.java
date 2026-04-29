@@ -73,10 +73,11 @@ public class ApiService {
         return "https://api.open-meteo.com/v1/forecast"
                 + "?latitude=" + String.format("%.4f", latitude)
                 + "&longitude=" + String.format("%.4f", longitude)
-                + "&daily=weather_code,temperature_2m_max,temperature_2m_min"
                 + "&hourly=temperature_2m"
-                + "&past_days=6"
-                + "&forecast_days=1";
+                + "&daily=weather_code,temperature_2m_max,temperature_2m_min"
+                + "&timezone=Asia%2FSingapore"
+                + "&past_days=7"
+                + "&forecast_days=0";
     }
     
     /**
