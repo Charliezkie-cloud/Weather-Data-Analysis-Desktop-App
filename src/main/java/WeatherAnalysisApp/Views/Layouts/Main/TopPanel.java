@@ -39,7 +39,7 @@ public class TopPanel extends JPanel {
             // ========== Start of Components ==========
 
             // Fetch button
-            fetchButton = new JButton("Fetch");
+            fetchButton = new JButton("Fetch Data");
 
             // Analyze data button
             analyzeDataButton = new JButton("Analyze Data");

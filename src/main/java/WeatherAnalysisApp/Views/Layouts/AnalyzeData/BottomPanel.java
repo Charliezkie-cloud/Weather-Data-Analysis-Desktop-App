@@ -17,7 +17,7 @@ public class BottomPanel extends JPanel {
     public static JLabel trendLabel;
 
     public BottomPanel() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(3, 2));
         setBorder(BorderFactory.createTitledBorder("Weather Summary"));
 
         // ========== Start of Components ==========
@@ -29,7 +29,7 @@ public class BottomPanel extends JPanel {
         // City label
         cityLabel = new JLabel("None");
 
-        cityPanel.add(new JLabel("City:"));
+        cityPanel.add(new JLabel("<html><b>City:</b></html>"));
         cityPanel.add(cityLabel);
 
         // Period panel
@@ -39,7 +39,7 @@ public class BottomPanel extends JPanel {
         // Period label
         periodLabel = new JLabel("I don't know ;D");
 
-        periodPanel.add(new JLabel("Period:"));
+        periodPanel.add(new JLabel("<html><b>Period:</b></html>"));
         periodPanel.add(periodLabel);
 
         // Average temperature panel
@@ -49,7 +49,7 @@ public class BottomPanel extends JPanel {
         // Average temperature label
         averageTemperatureLabel = new JLabel("None");
 
-        averageTemperaturePanel.add(new JLabel("Average Temperature:"));
+        averageTemperaturePanel.add(new JLabel("<html><b>Average Temperature:</b></html>"));
         averageTemperaturePanel.add(averageTemperatureLabel);
 
         // Highest temperature panel
@@ -59,7 +59,7 @@ public class BottomPanel extends JPanel {
         // Highest temperature label
         highestTemperatureLabel = new JLabel("Wala ko kahibalo bruh...");
 
-        highestTemperaturePanel.add(new JLabel("Highest Temperature:"));
+        highestTemperaturePanel.add(new JLabel("<html><b>Highest Temperature:</b></html>"));
         highestTemperaturePanel.add(highestTemperatureLabel);
 
         // Lowest temperature panel
@@ -69,7 +69,7 @@ public class BottomPanel extends JPanel {
         // Lowest temperature label
         lowestTemperatureLabel = new JLabel("Ambut lang...");
 
-        lowestTemperaturePanel.add(new JLabel("Lowest Temperature:"));
+        lowestTemperaturePanel.add(new JLabel("<html><b>Lowest Temperature:</b></html>"));
         lowestTemperaturePanel.add(lowestTemperatureLabel);
 
         // Trend panel
@@ -79,9 +79,8 @@ public class BottomPanel extends JPanel {
         // Trend label
         trendLabel = new JLabel("None");
 
-        trendPanel.add(new JLabel("Trend:"));
+        trendPanel.add(new JLabel("<html><b>Trend:</b></html>"));
         trendPanel.add(trendLabel);
-
 
         // ========== End of Components ==========
 

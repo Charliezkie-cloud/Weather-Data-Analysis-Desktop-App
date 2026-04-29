@@ -10,24 +10,52 @@ import java.awt.*;
  *
  */
 public class SettingsTab extends JPanel {
-    public SettingsTab() {
-        setLayout(new BorderLayout(10, 10));
-        setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+    public static JCheckBox autoSaveCheckBox;
+    public static JButton checkInternetButton;
 
+    public SettingsTab() {
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
         // ========== Start of Components ==========
 
+        ApplicationSettingsPanel applicationSettingsPanel = new ApplicationSettingsPanel();
         ProjectInformationPanel projectInformationPanel = new ProjectInformationPanel();
 
         // ========== End of Components ==========
 
-        add(projectInformationPanel, BorderLayout.NORTH);
+        add(applicationSettingsPanel, BorderLayout.NORTH);
+        add(projectInformationPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * The application settings panel
+     */
+    private static class ApplicationSettingsPanel extends JPanel {
+        public ApplicationSettingsPanel() {
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createTitledBorder("Application Settings"),
+                    BorderFactory.createEmptyBorder(12, 12, 12, 12)
+            ));
+
+            // ========== Start of Components ==========
+
+            autoSaveCheckBox = new JCheckBox("Auto Save Data on Exit");
+            checkInternetButton = new JButton("Check Internet Connection");
+
+            // ========== End of Components ==========
+
+            add(autoSaveCheckBox);
+            add(Box.createVerticalStrut(10));
+            add(checkInternetButton);
+        }
     }
 
     /**
      * The project information panel
      */
-    private class ProjectInformationPanel extends Panel {
+    private static class ProjectInformationPanel extends JPanel {
         public ProjectInformationPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBorder(BorderFactory.createCompoundBorder(
@@ -40,22 +68,28 @@ public class SettingsTab extends JPanel {
             JLabel applicationNameLabel = new JLabel("Weather Analysis Desktop Application");
             applicationNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
-            JLabel applicationVersionLabel = new JLabel(String.format("<html><b>Application version:</b> %s</html>", Data.APP_VERSION));
-            JLabel developerLabel = new JLabel("<html><b>Developed by:</b> Charles Henry M. Tinoy Jr.</html>");
-            JLabel organizationLabel = new JLabel("<html><b>School / Organization:</b> University of Cebu - BSIT</html>");
-            JLabel openSourceLicenseLabel = new JLabel("<html><b>Open Source License:</b> MIT LICENSE</html>");
+            JLabel applicationVersionLabel = new JLabel(String.format("<html><b>Version:</b> %s</html>", Data.APP_VERSION));
+            JLabel developerLabel = new JLabel(String.format("<html><b>Developed by:</b> %s</html>", Data.APP_AUTHOR));
+            JLabel organizationLabel = new JLabel(String.format("<html><b>School / Organization:</b> %s</html>", Data.APP_ORGANIZATION));
+            JLabel openSourceLicenseLabel = new JLabel(String.format("<html><b>Open source license:</b> %s</html>", Data.OPEN_SOURCE_LICENSE));
+            JLabel javaVersionLabel = new JLabel(String.format("<html><b>Java version:</b> Java %d</html>", Data.APP_JAVA_VERSION));
+            JLabel externalLibrariesLabel = new JLabel(String.format("<html><b>External libraries:</b> %s</html>", Data.APP_EXTERNAL_LIBRARIES));
 
             // ========== End of Components ==========
 
             add(applicationNameLabel);
             add(Box.createVerticalStrut(10));
             add(applicationVersionLabel);
-            add(Box.createVerticalStrut(10));
+            add(Box.createVerticalStrut(5));
             add(developerLabel);
-            add(Box.createVerticalStrut(10));
+            add(Box.createVerticalStrut(5));
             add(organizationLabel);
-            add(Box.createVerticalStrut(10));
+            add(Box.createVerticalStrut(5));
             add(openSourceLicenseLabel);
+            add(Box.createVerticalStrut(5));
+            add(javaVersionLabel);
+            add(Box.createVerticalStrut(5));
+            add(externalLibrariesLabel);
         }
     }
 }

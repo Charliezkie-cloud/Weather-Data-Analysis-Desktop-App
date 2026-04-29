@@ -1,9 +1,11 @@
 package WeatherAnalysisApp.Application;
 
+import WeatherAnalysisApp.Models.ApplicationSettings;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Services.CachingService;
 import WeatherAnalysisApp.Services.HelperService;
+import WeatherAnalysisApp.Services.SettingsService;
 
 import javax.swing.*;
 import java.io.File;
@@ -13,27 +15,39 @@ import java.util.Objects;
 public class Data {
     // ========== APPLICATION DATA ==========
     public static ArrayList<CityWeatherData> CITIES_DATA = new ArrayList<>();
-    public static String APP_VERSION = "v1.0.0 - Stable Release";
+    public static ApplicationSettings APPLICATION_SETTINGS = new ApplicationSettings(false);
+
+    // ========== APPLICATION INFORMATION'S ==========
+    public static final String APP_AUTHOR = "Charles Henry M. Tinoy Jr.";
+    public static final String APP_VERSION = "v1.0.0 - Stable Release";
+    public static final String APP_ORGANIZATION = "University of Cebu - Bachelor of Science in Information Technology";
+    public static final String OPEN_SOURCE_LICENSE = "MIT License";
+    public static final int APP_JAVA_VERSION = 25;
+    public static final String APP_EXTERNAL_LIBRARIES = "Flatlaf, Jackson Databind, JFreeChart";
 
     // ========== APPLICATION APP DATA ==========
     public static final String APP_NAME = "WeatherDataAnalysisDesktopApp";
     public static final File APP_DIR = new File(System.getenv("APPDATA"), APP_NAME);
-    public static final File APP_TEMP_DATA_FILEPATH = new File(APP_DIR, "Data");
-    public static final ImageIcon APP_LOGO = new ImageIcon(
-            Objects.requireNonNull(Data.class.getResource("/uc-logo.png"))
-    );
+    public static final File APP_CITY_DATA_FILEPATH = new File(APP_DIR, "Data");
+    public static final File APP_SETTINGS_DATA_FILEPATH = new File(APP_DIR, "Settings");
+    public static final ImageIcon APP_LOGO = new ImageIcon(Objects.requireNonNull(Data.class.getResource("/uc-logo.png")));
 
     /**
      * Initialize the applications data
      */
-    public static void initializeApplication() {
-        CachingService.createAppDir();
+    public static void initializeApplicationData() {
+        createAppDir();
         ArrayList<CityWeatherData> cachedData = CachingService.readApplicationData();
+        ApplicationSettings applicationSettings = SettingsService.readApplicationSettingsData();
 
         if (cachedData == null) return;
         CITIES_DATA.addAll(cachedData);
+
+        if (applicationSettings == null) return;
+        APPLICATION_SETTINGS = applicationSettings;
     }
 
+    // ========== TEST ==========
     /**
      * Initialize sample cities data
      */
@@ -47,5 +61,14 @@ public class Data {
                 new double[] {16.6, 14.1, 13.4, 16.7, 21.8, 24.1, 24.8},
                 new double[] {4.9, 4.2, 4.2, 3.1, 7.1, 9.5, 9.8}
         ));
+    }
+
+    // ========== HELPERS ==========
+    /**
+     * Creates the application folder on <code>%appdata%</code> location
+     */
+    public static void createAppDir() {
+        if (!Data.APP_DIR.exists())
+            Data.APP_DIR.mkdirs();
     }
 }

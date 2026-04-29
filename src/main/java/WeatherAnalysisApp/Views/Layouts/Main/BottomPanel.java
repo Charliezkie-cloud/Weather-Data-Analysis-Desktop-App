@@ -20,7 +20,7 @@ public class BottomPanel extends JPanel {
 
         // ========== End of Components ==========
 
-        add(new JLabel("Internet Status:"));
+        add(new JLabel("Internet status:"));
         add(internetStatusLabel);
     }
 }

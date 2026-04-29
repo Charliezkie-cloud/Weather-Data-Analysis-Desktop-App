@@ -8,6 +8,7 @@ import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.ApiService;
 import WeatherAnalysisApp.Services.CachingService;
 import WeatherAnalysisApp.Services.HelperService;
+import WeatherAnalysisApp.Services.SettingsService;
 import WeatherAnalysisApp.Views.AddCityView;
 import WeatherAnalysisApp.Views.AnalyzeDataView;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
@@ -18,6 +19,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -47,6 +49,10 @@ public class MainController {
     // Left panel components
     private final JLabel internetStatusLabel;
 
+    // Settings tab components
+    private final JCheckBox autoSaveCheckBox;
+    private final JButton checkInternetButton;
+
     /**
      * The constructor of the program
      * @param mainViewFrame Main view frame - <code>JFrame</code>
@@ -74,7 +80,10 @@ public class MainController {
             JTable cityDataTable,
             JMenuItem deleteCityMenuItem,
 
-            JLabel internetStatusLabel
+            JLabel internetStatusLabel,
+
+            JCheckBox autoSaveCheckBox,
+            JButton checkInternetButton
     ) {
         // Load the parent component
         this.mainViewFrame = mainViewFrame;
@@ -96,9 +105,16 @@ public class MainController {
         // Load bottom panel components
         this.internetStatusLabel = internetStatusLabel;
 
+        // Load settings tab components
+        this.autoSaveCheckBox = autoSaveCheckBox;
+        this.checkInternetButton = checkInternetButton;
+
         // Load cities to the list
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
             cityListModel.addElement(cityWeatherData.city.name);
+
+        // Load the application settings
+        autoSaveCheckBox.setSelected(Data.APPLICATION_SETTINGS.isAutoSave);
 
         // Load listeners
         mainViewFrame.addWindowListener(new MainViewWindowAdapter());
@@ -108,7 +124,9 @@ public class MainController {
         dataOptionBox.addActionListener(new DataOptionBoxActionListener());
         clearButton.addActionListener(new ClearButtonActionListener());
         analyzeDataButton.addActionListener(new AnalyzeDataButtonActionListener());
-        deleteCityMenuItem.addActionListener(new deleteCityDataActionListener());
+        deleteCityMenuItem.addActionListener(new DeleteCityDataActionListener());
+        autoSaveCheckBox.addActionListener(new AutoSaveCheckBoxActionListener());
+        checkInternetButton.addActionListener(new CheckInternetButtonActionListener());
 
         // Load threads
         Thread checkInternetThread = new Thread(new CheckInternet());
@@ -259,7 +277,7 @@ public class MainController {
     /**
      * Deletes the city weather data based on the selected city list index
      */
-    private class deleteCityDataActionListener implements ActionListener {
+    private class DeleteCityDataActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = cityList.getSelectedIndex();
@@ -291,11 +309,60 @@ public class MainController {
     }
 
     /**
+     * Auto save check box action listener
+     */
+    private class AutoSaveCheckBoxActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Data.APPLICATION_SETTINGS.setAutoSave(autoSaveCheckBox.isSelected());
+            System.out.println(autoSaveCheckBox.isSelected());
+        }
+    }
+
+    /**
+     * Action listener for checking the internet connection
+     */
+    private class CheckInternetButtonActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            checkInternetButton.setText("Checking.");
+            checkInternetButton.setEnabled(false);
+            Timer timer = new Timer(250, new CheckingInternetAnimation());
+            timer.start();
+
+            boolean isInternetAvailable = ApiService.isInternetAvailable();
+
+            if (isInternetAvailable) {
+                timer.stop();
+                checkInternetButton.setText("Check Internet Connection");
+                checkInternetButton.setEnabled(true);
+                internetStatusLabel.setText("Available");
+                internetStatusLabel.setForeground(new Color(22, 163, 74));
+                CustomJOptionPane.showSuccessDialog(null, "Internet available!");
+                return;
+            }
+
+            timer.stop();
+            checkInternetButton.setText("Check Internet Connection");
+            checkInternetButton.setEnabled(true);
+            internetStatusLabel.setText("Not available");
+            internetStatusLabel.setForeground(new Color(220, 38, 38));
+            CustomJOptionPane.showErrorDialog(null, "Internet not available!");
+        }
+    }
+
+    /**
      * The adapter of the main window
      */
     private class MainViewWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
+            if (Data.APPLICATION_SETTINGS.isAutoSave) {
+                SettingsService.writeApplicationSettingsData();
+                CachingService.writeApplicationData();
+                return;
+            }
+
             int confirmation = CustomJOptionPane.showConfirmDialog(
                     null,
                     "Do you want to save your current weather data?",
@@ -322,10 +389,14 @@ public class MainController {
             boolean isInternetAvailable = ApiService.isInternetAvailable();
 
             SwingUtilities.invokeLater(() -> {
-                if (isInternetAvailable)
-                    internetStatusLabel.setText("Internet available");
-                else
-                    internetStatusLabel.setText("Internet not available");
+                if (isInternetAvailable) {
+                    internetStatusLabel.setText("Available");
+                    internetStatusLabel.setForeground(new Color(22, 163, 74));
+                    return;
+                }
+
+                internetStatusLabel.setText("Not available");
+                internetStatusLabel.setForeground(new Color(220, 38, 38));
             });
         }
     }
@@ -344,6 +415,25 @@ public class MainController {
                 loadingLength = 0;
             } else {
                 fetchButton.setText(fetchButton.getText() + ".");
+            }
+
+            loadingLength++;
+        }
+    }
+
+    /**
+     * The checking animation for check internet button
+     */
+    private class CheckingInternetAnimation implements ActionListener {
+        private int loadingLength = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (loadingLength > 3) {
+                checkInternetButton.setText("Checking.");
+                loadingLength = 0;
+            } else {
+                checkInternetButton.setText(checkInternetButton.getText() + ".");
             }
 
             loadingLength++;

@@ -8,11 +8,10 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Data.initializeApplication();
-        // Data.initializeSampleCityData();
+        Data.initializeApplicationData();
 
         SwingUtilities.invokeLater(() -> {
-            FlatMacLightLaf.setup();
+         FlatMacLightLaf.setup();
             MainView mainView = new MainView();
             mainView.setVisible(true);
         });

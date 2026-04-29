@@ -61,7 +61,10 @@ public class MainView extends JFrame {
                 CenterPanel.cityDataTable,
                 CenterPanel.deleteCityMenuItem,
 
-                BottomPanel.internetStatusLabel
+                BottomPanel.internetStatusLabel,
+
+                SettingsTab.autoSaveCheckBox,
+                SettingsTab.checkInternetButton
         );
 
         // ========== End of Components ==========
