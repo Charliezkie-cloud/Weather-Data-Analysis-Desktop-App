@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Views;
 
+import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Controllers.AddCityController;
 import WeatherAnalysisApp.Controllers.MainController;
 import WeatherAnalysisApp.Views.Components.FontRenderer;
@@ -25,6 +26,7 @@ public class AddCityView extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
+        setIconImage(Data.APP_LOGO.getImage());
 
         // ========== Start of Components ==========
 

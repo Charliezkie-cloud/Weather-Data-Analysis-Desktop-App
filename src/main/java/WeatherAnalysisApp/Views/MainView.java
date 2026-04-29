@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Views;
 
+import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Controllers.MainController;
 import WeatherAnalysisApp.Views.Components.FontRenderer;
 import WeatherAnalysisApp.Views.Layouts.Main.BottomPanel;
@@ -28,6 +29,7 @@ public class MainView extends JFrame {
         setSize(1050, 700);
         setMinimumSize(new Dimension(800, 580));
         setLocationRelativeTo(null);
+        setIconImage(Data.APP_LOGO.getImage());
 
         // ========== Start of Components ==========
 
@@ -57,8 +59,9 @@ public class MainView extends JFrame {
                 CenterPanel.cityList,
                 CenterPanel.cityDataTableModel,
                 CenterPanel.cityDataTable,
+                CenterPanel.deleteCityMenuItem,
 
-                BottomPanel.statusLabel
+                BottomPanel.internetStatusLabel
         );
 
         // ========== End of Components ==========

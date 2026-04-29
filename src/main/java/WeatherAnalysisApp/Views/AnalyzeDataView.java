@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Views;
 
+import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Controllers.AnalyzeDataController;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Views.Components.FontRenderer;
@@ -21,6 +22,7 @@ public class AnalyzeDataView extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
+        setIconImage(Data.APP_LOGO.getImage());
 
         // ========== Start of Components ==========
 

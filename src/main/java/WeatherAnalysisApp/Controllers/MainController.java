@@ -7,7 +7,7 @@ import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.ApiService;
 import WeatherAnalysisApp.Services.CachingService;
-import WeatherAnalysisApp.Services.HelpersService;
+import WeatherAnalysisApp.Services.HelperService;
 import WeatherAnalysisApp.Views.AddCityView;
 import WeatherAnalysisApp.Views.AnalyzeDataView;
 import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
@@ -42,9 +42,10 @@ public class MainController {
     private final JList<String> cityList;
     private final DefaultTableModel cityDataTableModel;
     private final JTable cityDataTable;
+    private final JMenuItem deleteCityMenuItem;
 
     // Left panel components
-    private final JLabel statusLabel;
+    private final JLabel internetStatusLabel;
 
     /**
      * The constructor of the program
@@ -71,8 +72,9 @@ public class MainController {
             JList<String> cityList,
             DefaultTableModel cityDataTableModel,
             JTable cityDataTable,
+            JMenuItem deleteCityMenuItem,
 
-            JLabel statusLabel
+            JLabel internetStatusLabel
     ) {
         // Load the parent component
         this.mainViewFrame = mainViewFrame;
@@ -89,9 +91,10 @@ public class MainController {
         this.cityList = cityList;
         this.cityDataTableModel = cityDataTableModel;
         this.cityDataTable = cityDataTable;
+        this.deleteCityMenuItem = deleteCityMenuItem;
 
         // Load bottom panel components
-        this.statusLabel = statusLabel;
+        this.internetStatusLabel = internetStatusLabel;
 
         // Load cities to the list
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
@@ -105,6 +108,7 @@ public class MainController {
         dataOptionBox.addActionListener(new DataOptionBoxActionListener());
         clearButton.addActionListener(new ClearButtonActionListener());
         analyzeDataButton.addActionListener(new AnalyzeDataButtonActionListener());
+        deleteCityMenuItem.addActionListener(new deleteCityDataActionListener());
 
         // Load threads
         Thread checkInternetThread = new Thread(new CheckInternet());
@@ -175,7 +179,7 @@ public class MainController {
             );
 
             res.thenAccept(data -> {
-                Data.CITIES_DATA.set(selectedIndex, HelpersService.weatherResponseToCityWeatherData(
+                Data.CITIES_DATA.set(selectedIndex, HelperService.weatherResponseToCityWeatherData(
                         selectedCityWeatherData.city,
                         data
                 ));
@@ -253,6 +257,40 @@ public class MainController {
     }
 
     /**
+     * Deletes the city weather data based on the selected city list index
+     */
+    private class deleteCityDataActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int selectedIndex = cityList.getSelectedIndex();
+            if (selectedIndex == -1) {
+                CustomJOptionPane.showErrorDialog(null, "Please select a city.");
+                return;
+            }
+
+            CityWeatherData selectedCityWeatherData = Data.CITIES_DATA.get(selectedIndex);
+            int deletionConfirmation = CustomJOptionPane.showConfirmDialog(
+                    null,
+                    String.format("Are you sure you want to remove %s from the list and delete its weather data? This action cannot be undone.", selectedCityWeatherData.city.name),
+                    "Deletion Confirmation",
+                    CustomJOptionPane.OK_CANCEL_OPTION,
+                    CustomJOptionPane.WARNING_MESSAGE
+            );
+
+            if (deletionConfirmation != CustomJOptionPane.OK_OPTION)
+                return;
+
+            Data.CITIES_DATA.remove(selectedCityWeatherData);
+            updateCityList();
+
+            CustomJOptionPane.showSuccessDialog(
+                    null,
+                    String.format("%s weather data has been successfully deleted.", selectedCityWeatherData.city.name)
+            );
+        }
+    }
+
+    /**
      * The adapter of the main window
      */
     private class MainViewWindowAdapter extends WindowAdapter {
@@ -285,14 +323,17 @@ public class MainController {
 
             SwingUtilities.invokeLater(() -> {
                 if (isInternetAvailable)
-                    statusLabel.setText("Internet available");
+                    internetStatusLabel.setText("Internet available");
                 else
-                    statusLabel.setText("Internet not available");
+                    internetStatusLabel.setText("Internet not available");
             });
         }
     }
 
     // ========== TIMERS ANIMATIONS ==========
+    /**
+     * The fetching animation for fetch button
+     */
     private class FetchDataAnimation implements ActionListener {
         private int loadingLength = 0;
 
@@ -318,6 +359,10 @@ public class MainController {
         model.setRowCount(0);
     }
 
+    /**
+     * Populates the city data table based on the selected city index
+     * @param selectedIndex The index of the selected city
+     */
     private void populateCityDataTable(int selectedIndex) {
         String selectedDataOption = (String) dataOptionBox.getSelectedItem();
         if (selectedDataOption == null) return;
@@ -336,7 +381,7 @@ public class MainController {
      * Populates the hourly city data table based on the selected index of the city list
      * @param selectedCityIndex The index of the selected city
      */
-    private void populateHourlyCityDataTable(int selectedCityIndex) {
+    private void populateHourlyCityDataTable(int selectedCityIndex)  {
         clearCityDataTable();
 
         cityDataTableModel.setColumnCount(0);
@@ -348,10 +393,10 @@ public class MainController {
 
         for (HourlyPoint hourlyPoint : Data.CITIES_DATA.get(selectedCityIndex).hourlyPoints) {
             LocalDateTime localDateTime = LocalDateTime.parse(hourlyPoint.time);
-            String status = HelpersService.getTemperatureStatus(hourlyPoint.temperature);
+            String status = HelperService.getTemperatureStatus(hourlyPoint.temperature);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDateTime.format(HelpersService.DATE_TIME_FORMATTER),
+                    localDateTime.format(HelperService.DATE_TIME_FORMATTER),
                     String.format("%.1f°C", hourlyPoint.temperature),
                     status
             });
@@ -372,10 +417,10 @@ public class MainController {
 
         for (DailyPoint dailyPoint : Data.CITIES_DATA.get(selectedCityIndex).dailyPoints) {
             LocalDate localDate = LocalDate.parse(dailyPoint.time);
-            String humanReadableCode = HelpersService.getWeatherCodeString(dailyPoint.weather_code);
+            String humanReadableCode = HelperService.getWeatherCodeString(dailyPoint.weather_code);
 
             cityDataTableModel.addRow(new Object[]{
-                    localDate.format(HelpersService.DATE_FORMATTER),
+                    localDate.format(HelperService.DATE_FORMATTER),
                     humanReadableCode
             });
         }
@@ -393,6 +438,7 @@ public class MainController {
      * Updates the city list
      */
     public void updateCityList() {
+        clearCityDataTable();
         clearCityList();
 
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)

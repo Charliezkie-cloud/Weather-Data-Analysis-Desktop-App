@@ -14,6 +14,7 @@ public class CenterPanel extends JPanel {
     public static JList<String> cityList;
     public static DefaultTableModel cityDataTableModel;
     public static JTable cityDataTable;
+    public static JMenuItem deleteCityMenuItem;
 
     public CenterPanel() {
         setLayout(new GridLayout(1, 2));
@@ -39,6 +40,16 @@ public class CenterPanel extends JPanel {
             // List
             cityList = new JList<>(cityListModel);
             JScrollPane listScrollPane = new JScrollPane(cityList);
+
+            // Context menu
+            JPopupMenu cityListPopupMenu = new JPopupMenu();
+
+            // Menu items
+            deleteCityMenuItem = new JMenuItem("Delete");
+
+            cityListPopupMenu.add(deleteCityMenuItem);
+
+            cityList.setComponentPopupMenu(cityListPopupMenu);
 
             add(listScrollPane, BorderLayout.CENTER);
         }

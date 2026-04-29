@@ -2,7 +2,7 @@ package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
-import WeatherAnalysisApp.Services.HelpersService;
+import WeatherAnalysisApp.Services.HelperService;
 import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
@@ -90,8 +90,8 @@ public class AnalyzeDataController {
         cityLabel.setText(selectedCityWeatherData.city.name);
         periodLabel.setText(String.format(
                 "%s to %s",
-                endDate.format(HelpersService.DATE_FORMATTER),
-                startDate.format(HelpersService.DATE_FORMATTER)
+                endDate.format(HelperService.DATE_FORMATTER),
+                startDate.format(HelperService.DATE_FORMATTER)
         ));
         averageTemperatureLabel.setText(String.format("%.2f °C", averageTemperature));
         highestTemperatureLabel.setText(String.format("%.2f °C", highestMaxTemperature));

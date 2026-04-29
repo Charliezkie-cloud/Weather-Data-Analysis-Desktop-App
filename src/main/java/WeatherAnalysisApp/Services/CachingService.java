@@ -15,7 +15,7 @@ public class CachingService {
      * Creates the application folder on <code>%appdata%</code> location
      */
     public static void createAppDir() {
-        if (!Data.APP_DIR.exists() && Data.APP_DIR.isDirectory())
+        if (!Data.APP_DIR.exists())
             Data.APP_DIR.mkdirs();
     }
 

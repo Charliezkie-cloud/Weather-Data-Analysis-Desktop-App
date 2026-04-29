@@ -6,10 +6,11 @@ import WeatherAnalysisApp.Models.SubModels.DailyPoint;
 import WeatherAnalysisApp.Models.SubModels.HourlyPoint;
 import WeatherAnalysisApp.Models.WeatherResponse;
 
+import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class HelpersService {
+public class HelperService {
     // Date time and date formatter
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
@@ -192,5 +193,19 @@ public class HelpersService {
             case 99 -> "Heavy thunderstorm with hail";
             default -> "Unknown Weather Code";
         };
+    }
+
+    /**
+     * Returns the color based on the given temperature
+     * @param temperature The temperature value
+     * @return The color object
+     */
+    public static Color getColor(double temperature) {
+        if (temperature <= 0) return new Color(189, 215, 255);
+        else if (temperature <= 10) return new Color(173, 216, 230);
+        else if (temperature <= 20) return new Color(183, 235, 219);
+        else if (temperature <= 30) return new Color(255, 241, 181);
+        else if (temperature <= 35) return new Color(255, 200, 150);
+        return new Color(255, 160, 160);
     }
 }

@@ -1,5 +1,7 @@
 package WeatherAnalysisApp.Views.Components;
 
+import WeatherAnalysisApp.Services.HelperService;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
@@ -24,26 +26,11 @@ public class RowColorRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         double temperature = Double.parseDouble(table.getValueAt(row, 1).toString().replaceAll("[^0-9.-]", ""));
-
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         if (!isSelected)
-            component.setBackground(getColor(temperature));
+            component.setBackground(HelperService.getColor(temperature));
 
         return component;
-    }
-
-    /**
-     * Returns the color based on the given temperature
-     * @param temperature The temperature value
-     * @return The color object
-     */
-    private Color getColor(double temperature) {
-        if (temperature <= 0) return new Color(189, 215, 255);
-        else if (temperature <= 10) return new Color(173, 216, 230);
-        else if (temperature <= 20) return new Color(183, 235, 219);
-        else if (temperature <= 30) return new Color(255, 241, 181);
-        else if (temperature <= 35) return new Color(255, 200, 150);
-        return new Color(255, 160, 160);
     }
 }

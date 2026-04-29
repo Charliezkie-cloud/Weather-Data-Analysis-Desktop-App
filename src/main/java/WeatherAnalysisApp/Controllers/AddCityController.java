@@ -1,7 +1,7 @@
 package WeatherAnalysisApp.Controllers;
 
 import WeatherAnalysisApp.Application.Data;
-import WeatherAnalysisApp.Services.HelpersService;
+import WeatherAnalysisApp.Services.HelperService;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.ApiService;
@@ -134,7 +134,7 @@ public class AddCityController {
 
             res.thenAccept(data -> {
                 SwingUtilities.invokeLater(() -> {
-                    Data.CITIES_DATA.add(HelpersService.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
+                    Data.CITIES_DATA.add(HelperService.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
 
                     mainController.updateCityList();
                     timer.stop();
@@ -152,6 +152,9 @@ public class AddCityController {
     }
 
     // ========== TIMERS ANIMATION ==========
+    /**
+     * Timer animation for fetching the data
+     */
     private class AddDataAnimation implements ActionListener {
         private int loadingLength = 0;
 
