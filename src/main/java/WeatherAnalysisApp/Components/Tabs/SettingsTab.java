@@ -113,7 +113,7 @@ public class SettingsTab extends JPanel {
             JLabel developerLabel = new JLabel(String.format("<html><b>Developed by:</b> %s</html>", Data.APP_AUTHOR));
             JLabel organizationLabel = new JLabel(String.format("<html><b>School / Organization:</b> %s</html>", Data.APP_ORGANIZATION));
             JLabel openSourceLicenseLabel = new JLabel(String.format("<html><b>Open source license:</b> %s</html>", Data.OPEN_SOURCE_LICENSE));
-            JLabel javaVersionLabel = new JLabel(String.format("<html><b>Java version:</b> Java %d</html>", Data.APP_JAVA_VERSION));
+            JLabel javaVersionLabel = new JLabel(String.format("<html><b>Java runtime:</b> Java %d</html>", Data.APP_JAVA_VERSION));
             JLabel externalLibrariesLabel = new JLabel(String.format("<html><b>External libraries:</b> %s</html>", Data.APP_EXTERNAL_LIBRARIES));
 
             // ========== End of Components ==========
