@@ -22,10 +22,9 @@ public class EditCityView extends JFrame {
          */
         FontRenderer.setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        setTitle("Update City");
+        setTitle("Edit City");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(650, 300);
-        setMinimumSize(new Dimension(650, 300));
+        setResizable(false);
         setLocationRelativeTo(null);
         setIconImage(Data.APP_LOGO.getImage());
 

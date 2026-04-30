@@ -15,7 +15,7 @@ public class Data {
     public static ApplicationSettings APPLICATION_SETTINGS = new ApplicationSettings(
             false,
             false,
-            Timezone.ASIA_BANGKOK
+            Timezone.ASIA_SINGAPORE
     );
 
     // ========== APPLICATION INFORMATION'S ==========
@@ -27,7 +27,7 @@ public class Data {
     public static final String APP_EXTERNAL_LIBRARIES = "Flatlaf, Jackson Databind, JFreeChart";
 
     // ========== APPLICATION APP DATA ==========
-    public static final String APP_NAME = "WeatherDataAnalysisDesktopApp";
+    public static final String APP_NAME = "weather-data-analysis-desktop-app";
     public static final File APP_DIR = new File(System.getenv("APPDATA"), APP_NAME);
     public static final File APP_CITY_DATA_FILEPATH = new File(APP_DIR, "Data");
     public static final File APP_SETTINGS_DATA_FILEPATH = new File(APP_DIR, "Settings");

@@ -22,7 +22,7 @@ public class AnalyzeDataView extends JFrame {
          */
         FontRenderer.setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        setTitle("Analyze Data");
+        setTitle("Weather Analysis");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -42,6 +42,7 @@ public class AnalyzeDataView extends JFrame {
 
         // Analyze data controller
         new AnalyzeDataController(
+                this,
                 selectedCityWeatherData,
 
                 CenterPanel.maximumTempData,

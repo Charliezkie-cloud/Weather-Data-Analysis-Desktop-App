@@ -94,7 +94,7 @@ public class LeftPanel extends JPanel {
         resetButton = new JButton("Reset");
 
         // Add button
-        addButton = new JButton("Add");
+        addButton = new JButton("Add & Fetch Data");
 
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         buttonsPanel.add(resetButton);

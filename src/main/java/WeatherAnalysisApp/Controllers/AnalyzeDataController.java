@@ -13,6 +13,9 @@ import java.time.LocalDate;
  */
 public class AnalyzeDataController {
     public AnalyzeDataController(
+            // Analyze data view frame
+            JFrame analyzeDataView,
+
             // Selected city weather data
             CityWeatherData selectedCityWeatherData,
 
@@ -31,6 +34,8 @@ public class AnalyzeDataController {
         // System.out.println("========== TEST ==========");
         // System.out.println(selectedCityWeatherData.dailyPoints.size());
         // System.out.println("========== TEST ==========");
+
+        analyzeDataView.setTitle(String.format("%s Weather Data Analysis", selectedCityWeatherData.city.name));
 
         // Load datasets into the XY series
         int days = 1;
