@@ -2,7 +2,6 @@ package WeatherAnalysisApp.Events.AddCity;
 
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Components.CustomJOptionPane;
-import WeatherAnalysisApp.Controllers.AddCityController;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.ApiService;
@@ -128,13 +127,13 @@ public class AddButtonActionListener implements ActionListener {
             return "Longitude is required.";
 
         try {
-            double latitude = Double.parseDouble(latitudeField.getText());
+            Double.parseDouble(latitudeField.getText());
         } catch (NumberFormatException e) {
             return "Invalid latitude value.";
         }
 
         try {
-            double longitude = Double.parseDouble(longitudeField.getText());
+            Double.parseDouble(longitudeField.getText());
         } catch (NumberFormatException e) {
             return "Invalid longitude value.";
         }

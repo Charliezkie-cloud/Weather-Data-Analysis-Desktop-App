@@ -214,6 +214,7 @@ public class HelperService {
      * Converts the timezone enum into a string
      * @return The timezone enum string
      */
+    @SuppressWarnings("all")
     public static String timezoneEnumToString(Timezone timezone) {
         return switch (timezone) {
             case AMERICA_ANCHORAGE -> "America/Anchorage";

@@ -6,7 +6,6 @@ import WeatherAnalysisApp.Components.Layouts.EditCity.BottomPanel;
 import WeatherAnalysisApp.Components.Layouts.EditCity.TopPanel;
 import WeatherAnalysisApp.Components.Layouts.Main.CenterPanel;
 import WeatherAnalysisApp.Controllers.UpdateCityController;
-import WeatherAnalysisApp.Models.CityWeatherData;
 
 import javax.swing.*;
 import java.awt.*;

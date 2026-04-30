@@ -40,6 +40,7 @@ public class ApplicationService {
     /**
      * Initialize sample cities data
      */
+    @SuppressWarnings("unused")
     public static void initializeSampleCityData() {
         Data.CITIES_DATA.add(HelperService.buildCityWeatherData(
                 new City("Berlin City", 10.3167, 123.8907),
@@ -56,6 +57,7 @@ public class ApplicationService {
     /**
      * Creates the application folder on <code>%appdata%</code> location
      */
+    @SuppressWarnings("all")
     public static void createAppDir() {
         if (!Data.APP_DIR.exists())
             Data.APP_DIR.mkdirs();

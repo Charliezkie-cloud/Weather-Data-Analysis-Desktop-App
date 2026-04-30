@@ -1,7 +1,5 @@
 package WeatherAnalysisApp.Components.Layouts.EditCity;
 
-import WeatherAnalysisApp.Models.City;
-
 import javax.swing.*;
 import java.awt.*;
 

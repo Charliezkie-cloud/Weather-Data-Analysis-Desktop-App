@@ -2,7 +2,6 @@ package WeatherAnalysisApp.Events.Main;
 
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Components.CustomJOptionPane;
-import WeatherAnalysisApp.Controllers.MainController;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import WeatherAnalysisApp.Services.ApiService;
