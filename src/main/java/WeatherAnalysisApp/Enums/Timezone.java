@@ -1,0 +1,23 @@
+package WeatherAnalysisApp.Enums;
+
+/**
+ * Enum for timezones
+ */
+public enum Timezone {
+    AMERICA_ANCHORAGE,
+    AMERICA_LOS_ANGELES,
+    AMERICA_DENVER,
+    AMERICA_CHICAGO,
+    AMERICA_NEW_YORK,
+    AMERICA_SAO_PAULO,
+    EUROPE_LONDON,
+    EUROPE_BERLIN,
+    EUROPE_MOSCOW,
+    AFRICA_CAIRO,
+    ASIA_BANGKOK,
+    ASIA_SINGAPORE,
+    ASIA_TOKYO,
+    AUSTRALIA_SYDNEY,
+    PACIFIC_AUCKLAND,
+}
+

@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Services;
 
+import WeatherAnalysisApp.Enums.Timezone;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.CityWeatherData;
 import WeatherAnalysisApp.Models.SubModels.DailyPoint;
@@ -207,5 +208,55 @@ public class HelperService {
         else if (temperature <= 30) return new Color(255, 241, 181);
         else if (temperature <= 35) return new Color(255, 200, 150);
         return new Color(255, 160, 160);
+    }
+
+    /**
+     * Converts the timezone enum into a string
+     * @return The timezone enum string
+     */
+    public static String timezoneEnumToString(Timezone timezone) {
+        return switch (timezone) {
+            case AMERICA_ANCHORAGE -> "America/Anchorage";
+            case AMERICA_LOS_ANGELES -> "America/Los_Angeles";
+            case AMERICA_DENVER -> "America/Denver";
+            case AMERICA_CHICAGO -> "America/Chicago";
+            case AMERICA_NEW_YORK -> "America/New_York";
+            case AMERICA_SAO_PAULO -> "America/Sao_Paulo";
+            case EUROPE_LONDON -> "Europe/London";
+            case EUROPE_BERLIN -> "Europe/Berlin";
+            case EUROPE_MOSCOW -> "Europe/Moscow";
+            case AFRICA_CAIRO -> "Africa/Cairo";
+            case ASIA_BANGKOK -> "Asia/Bangkok";
+            case ASIA_SINGAPORE -> "Asia/Singapore";
+            case ASIA_TOKYO -> "Asia/Tokyo";
+            case AUSTRALIA_SYDNEY -> "Australia/Sydney";
+            case PACIFIC_AUCKLAND -> "Pacific/Auckland";
+            default -> "GMT";
+        };
+    }
+
+    /**
+     * Converts the timezone enum into a string
+     * @return The timezone enum string
+     */
+    public static Timezone timezoneStringToEnum(String timezoneString) {
+        return switch (timezoneString) {
+            case "America/Anchorage" -> Timezone.AMERICA_ANCHORAGE;
+            case "America/Los_Angeles" -> Timezone.AMERICA_LOS_ANGELES;
+            case "America/Denver" -> Timezone.AMERICA_DENVER;
+            case "America/Chicago" -> Timezone.AMERICA_CHICAGO;
+            case "America/New_York" -> Timezone.AMERICA_NEW_YORK;
+            case "America/Sao_Paulo" -> Timezone.AMERICA_SAO_PAULO;
+            case "Europe/London" -> Timezone.EUROPE_LONDON;
+            case "Europe/Berlin" -> Timezone.EUROPE_BERLIN;
+            case "Europe/Moscow" -> Timezone.EUROPE_MOSCOW;
+            case "Africa/Cairo" -> Timezone.AFRICA_CAIRO;
+            case "Asia/Bangkok" -> Timezone.ASIA_BANGKOK;
+            case "Asia/Singapore" -> Timezone.ASIA_SINGAPORE;
+            case "Asia/Tokyo" -> Timezone.ASIA_TOKYO;
+            case "Australia/Sydney" -> Timezone.AUSTRALIA_SYDNEY;
+            case "Pacific/Auckland" -> Timezone.PACIFIC_AUCKLAND;
+            default -> null;
+        };
     }
 }

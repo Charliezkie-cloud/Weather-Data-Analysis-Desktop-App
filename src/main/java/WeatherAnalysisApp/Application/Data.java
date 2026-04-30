@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Application;
 
+import WeatherAnalysisApp.Enums.Timezone;
 import WeatherAnalysisApp.Models.ApplicationSettings;
 import WeatherAnalysisApp.Models.CityWeatherData;
 
@@ -11,7 +12,11 @@ import java.util.Objects;
 public class Data {
     // ========== APPLICATION DATA ==========
     public static ArrayList<CityWeatherData> CITIES_DATA = new ArrayList<>();
-    public static ApplicationSettings APPLICATION_SETTINGS = new ApplicationSettings(false, false);
+    public static ApplicationSettings APPLICATION_SETTINGS = new ApplicationSettings(
+            false,
+            false,
+            Timezone.ASIA_BANGKOK
+    );
 
     // ========== APPLICATION INFORMATION'S ==========
     public static final String APP_AUTHOR = "Charles Henry M. Tinoy Jr.";

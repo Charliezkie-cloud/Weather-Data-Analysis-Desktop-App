@@ -65,6 +65,7 @@ public class MainView extends JFrame {
                 BottomPanel.internetStatusLabel,
 
                 SettingsTab.autoSaveCheckBox,
+                SettingsTab.timezoneBox,
                 SettingsTab.themeBox,
                 SettingsTab.checkInternetButton
         );

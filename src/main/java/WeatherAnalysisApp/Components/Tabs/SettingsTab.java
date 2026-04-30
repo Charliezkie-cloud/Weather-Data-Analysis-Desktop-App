@@ -1,6 +1,8 @@
 package WeatherAnalysisApp.Components.Tabs;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Enums.Timezone;
+import WeatherAnalysisApp.Services.HelperService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.awt.*;
  */
 public class SettingsTab extends JPanel {
     public static JCheckBox autoSaveCheckBox;
+    public static JComboBox<String> timezoneBox;
     public static JComboBox<String> themeBox;
     public static JButton checkInternetButton;
 
@@ -46,6 +49,24 @@ public class SettingsTab extends JPanel {
             autoSaveCheckBox = new JCheckBox("Auto Save Data on Exit");
             autoSaveCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+            // Timezone panel
+            JPanel timezonePanel = new JPanel();
+            timezonePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            timezonePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            // Load timezones
+            String[] timezones = new String[Timezone.values().length];
+            int timezoneIndex = 0;
+            for (Timezone item : Timezone.values()) {
+                timezones[timezoneIndex] = HelperService.timezoneEnumToString(item);
+                timezoneIndex++;
+            }
+
+            timezoneBox = new JComboBox<>(timezones);
+
+            timezonePanel.add(new JLabel("Timezone:"));
+            timezonePanel.add(timezoneBox);
+
             // Theme panel
             JPanel themePanel = new JPanel();
             themePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -63,9 +84,11 @@ public class SettingsTab extends JPanel {
             // ========== End of Components ==========
 
             add(autoSaveCheckBox);
-            add(Box.createVerticalStrut(10));
+            add(Box.createVerticalStrut(5));
+            add(timezonePanel);
+            add(Box.createVerticalStrut(5));
             add(themePanel);
-            add(Box.createVerticalStrut(10));
+            add(Box.createVerticalStrut(5));
             add(checkInternetButton);
         }
     }

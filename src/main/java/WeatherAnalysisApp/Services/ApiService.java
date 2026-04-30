@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Services;
 
+import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,9 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -98,12 +101,19 @@ public class ApiService {
      * @return The complete URL of the API for the request
      */
     public static String apiUrlBuilder(double latitude, double longitude) {
+        String timezone = HelperService.timezoneEnumToString(Data.APPLICATION_SETTINGS.timezone);
+        String urlEncodedTimezone = URLEncoder.encode(timezone, StandardCharsets.UTF_8);
+
+        // System.out.println("========== DEBUG ==========");
+        // System.out.println(urlEncodedTimezone);
+        // System.out.println("========== DEBUG ==========");
+
         return "https://api.open-meteo.com/v1/forecast"
                 + "?latitude=" + String.format("%.4f", latitude)
                 + "&longitude=" + String.format("%.4f", longitude)
                 + "&hourly=temperature_2m"
                 + "&daily=weather_code,temperature_2m_max,temperature_2m_min"
-                + "&timezone=Asia%2FSingapore"
+                + String.format("&timezone=%s", urlEncodedTimezone)
                 + "&past_days=7"
                 + "&forecast_days=0";
     }

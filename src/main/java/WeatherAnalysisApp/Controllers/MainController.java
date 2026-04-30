@@ -4,6 +4,7 @@ import WeatherAnalysisApp.Adapters.MainViewWindowAdapter;
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Events.Main.*;
 import WeatherAnalysisApp.Models.CityWeatherData;
+import WeatherAnalysisApp.Services.HelperService;
 import WeatherAnalysisApp.Threads.CheckInternet;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class MainController {
 
             // Settings tab
             JCheckBox autoSaveCheckBox,
+            JComboBox<String> timezoneBox,
             JComboBox<String> themeBox,
             JButton checkInternetButton
     ) {
@@ -48,6 +50,7 @@ public class MainController {
 
         // Load the application settings
         autoSaveCheckBox.setSelected(Data.APPLICATION_SETTINGS.isAutoSave);
+        timezoneBox.setSelectedItem(HelperService.timezoneEnumToString(Data.APPLICATION_SETTINGS.timezone));
         themeBox.setSelectedItem(!Data.APPLICATION_SETTINGS.isDarkTheme ? "Light" : "Dark");
 
         // Load listeners
@@ -60,6 +63,7 @@ public class MainController {
         analyzeDataButton.addActionListener(new AnalyzeDataButtonActionListener(cityList));
         deleteCityMenuItem.addActionListener(new DeleteCityDataActionListener(cityList, cityListModel, cityDataTable));
         autoSaveCheckBox.addActionListener(new AutoSaveCheckBoxActionListener(autoSaveCheckBox));
+        timezoneBox.addActionListener(new TimezoneBoxActionListener(timezoneBox));
         themeBox.addActionListener(new ThemeBoxActionListener(themeBox));
         updateCityMenuItem.addActionListener(new UpdateCityActionListener(cityList));
         checkInternetButton.addActionListener(new CheckInternetButtonActionListener(checkInternetButton, internetStatusLabel));
