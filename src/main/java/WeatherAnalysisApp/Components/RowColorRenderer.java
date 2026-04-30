@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Components;
+package WeatherAnalysisApp.Components;
 
 import WeatherAnalysisApp.Services.HelperService;
 
@@ -28,8 +28,11 @@ public class RowColorRenderer extends DefaultTableCellRenderer {
         double temperature = Double.parseDouble(table.getValueAt(row, 1).toString().replaceAll("[^0-9.-]", ""));
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        if (!isSelected)
+
+        if (!isSelected) {
+            component.setForeground(Color.BLACK);
             component.setBackground(HelperService.getColor(temperature));
+        }
 
         return component;
     }

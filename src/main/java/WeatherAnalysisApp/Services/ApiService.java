@@ -90,7 +90,7 @@ public class ApiService {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(weatherData, WeatherResponse.class);
         } catch (JsonProcessingException e) {
-            System.err.println("Something went wrong while parsing the weather data." + e.getMessage());
+            System.err.println("Something went wrong while parsing the weather data.");
             System.err.println("Error: " + e.getMessage());
             return null;
         }

@@ -2,12 +2,12 @@ package WeatherAnalysisApp.Views;
 
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Controllers.MainController;
-import WeatherAnalysisApp.Views.Components.FontRenderer;
-import WeatherAnalysisApp.Views.Layouts.Main.BottomPanel;
-import WeatherAnalysisApp.Views.Layouts.Main.CenterPanel;
-import WeatherAnalysisApp.Views.Layouts.Main.TopPanel;
-import WeatherAnalysisApp.Views.Tabs.Main.MainTab;
-import WeatherAnalysisApp.Views.Tabs.Main.SettingsTab;
+import WeatherAnalysisApp.Components.FontRenderer;
+import WeatherAnalysisApp.Components.Layouts.Main.BottomPanel;
+import WeatherAnalysisApp.Components.Layouts.Main.CenterPanel;
+import WeatherAnalysisApp.Components.Layouts.Main.TopPanel;
+import WeatherAnalysisApp.Components.Tabs.MainTab;
+import WeatherAnalysisApp.Components.Tabs.SettingsTab;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,6 +64,7 @@ public class MainView extends JFrame {
                 BottomPanel.internetStatusLabel,
 
                 SettingsTab.autoSaveCheckBox,
+                SettingsTab.themeBox,
                 SettingsTab.checkInternetButton
         );
 

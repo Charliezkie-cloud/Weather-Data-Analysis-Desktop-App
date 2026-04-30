@@ -3,9 +3,9 @@ package WeatherAnalysisApp.Views;
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Controllers.AnalyzeDataController;
 import WeatherAnalysisApp.Models.CityWeatherData;
-import WeatherAnalysisApp.Views.Components.FontRenderer;
-import WeatherAnalysisApp.Views.Layouts.AnalyzeData.BottomPanel;
-import WeatherAnalysisApp.Views.Layouts.AnalyzeData.CenterPanel;
+import WeatherAnalysisApp.Components.FontRenderer;
+import WeatherAnalysisApp.Components.Layouts.AnalyzeData.BottomPanel;
+import WeatherAnalysisApp.Components.Layouts.AnalyzeData.CenterPanel;
 
 import javax.swing.*;
 import java.awt.*;

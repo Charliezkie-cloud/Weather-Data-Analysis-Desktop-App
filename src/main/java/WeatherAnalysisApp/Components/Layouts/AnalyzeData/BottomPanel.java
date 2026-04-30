@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Layouts.AnalyzeData;
+package WeatherAnalysisApp.Components.Layouts.AnalyzeData;
 
 
 import javax.swing.*;

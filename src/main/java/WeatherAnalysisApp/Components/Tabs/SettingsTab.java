@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Tabs.Main;
+package WeatherAnalysisApp.Components.Tabs;
 
 import WeatherAnalysisApp.Application.Data;
 
@@ -11,6 +11,7 @@ import java.awt.*;
  */
 public class SettingsTab extends JPanel {
     public static JCheckBox autoSaveCheckBox;
+    public static JComboBox<String> themeBox;
     public static JButton checkInternetButton;
 
     public SettingsTab() {
@@ -41,12 +42,29 @@ public class SettingsTab extends JPanel {
 
             // ========== Start of Components ==========
 
+            // Auto save checkbox
             autoSaveCheckBox = new JCheckBox("Auto Save Data on Exit");
+            autoSaveCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            // Theme panel
+            JPanel themePanel = new JPanel();
+            themePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            themePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+            themeBox = new JComboBox<>(new String[] { "Light", "Dark" });
+
+            themePanel.add(new JLabel("Theme:"));
+            themePanel.add(themeBox);
+
+            // Check internet button
             checkInternetButton = new JButton("Check Internet Connection");
+            checkInternetButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             // ========== End of Components ==========
 
             add(autoSaveCheckBox);
+            add(Box.createVerticalStrut(10));
+            add(themePanel);
             add(Box.createVerticalStrut(10));
             add(checkInternetButton);
         }

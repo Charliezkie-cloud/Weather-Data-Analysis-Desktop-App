@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Components;
+package WeatherAnalysisApp.Components;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;

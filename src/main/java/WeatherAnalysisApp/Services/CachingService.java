@@ -2,7 +2,7 @@ package WeatherAnalysisApp.Services;
 
 import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Models.CityWeatherData;
-import WeatherAnalysisApp.Views.Components.CustomJOptionPane;
+import WeatherAnalysisApp.Components.CustomJOptionPane;
 
 import java.io.*;
 import java.util.ArrayList;

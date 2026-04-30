@@ -7,11 +7,14 @@ import java.io.Serializable;
  */
 public class ApplicationSettings implements Serializable {
     public boolean isAutoSave;
+    public boolean isDarkTheme;
 
-    public ApplicationSettings(boolean isAutoSave) {
+    public ApplicationSettings(boolean isAutoSave, boolean isDarkTheme) {
         this.isAutoSave = isAutoSave;
+        this.isDarkTheme = isDarkTheme;
     }
 
     // Setters
-    public void setAutoSave(boolean value) { isAutoSave = value; }
+    public void setIsAutoSave(boolean value) { isAutoSave = value; }
+    public void setIsDarkTheme(boolean value) { isDarkTheme = value; }
 }

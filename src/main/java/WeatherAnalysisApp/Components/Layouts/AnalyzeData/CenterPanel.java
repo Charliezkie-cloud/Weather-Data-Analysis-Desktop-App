@@ -1,6 +1,6 @@
-package WeatherAnalysisApp.Views.Layouts.AnalyzeData;
+package WeatherAnalysisApp.Components.Layouts.AnalyzeData;
 
-import WeatherAnalysisApp.Views.Components.ChartRenderer;
+import WeatherAnalysisApp.Components.ChartRenderer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Layouts.Main;
+package WeatherAnalysisApp.Components.Layouts.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

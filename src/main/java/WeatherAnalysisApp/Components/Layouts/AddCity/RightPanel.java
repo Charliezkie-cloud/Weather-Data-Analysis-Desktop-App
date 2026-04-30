@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Layouts.AddCity;
+package WeatherAnalysisApp.Components.Layouts.AddCity;
 
 import WeatherAnalysisApp.Models.City;
 

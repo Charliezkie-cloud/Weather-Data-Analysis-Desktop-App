@@ -1,11 +1,11 @@
 package WeatherAnalysisApp.Views;
 
 import WeatherAnalysisApp.Application.Data;
+import WeatherAnalysisApp.Components.Layouts.Main.CenterPanel;
 import WeatherAnalysisApp.Controllers.AddCityController;
-import WeatherAnalysisApp.Controllers.MainController;
-import WeatherAnalysisApp.Views.Components.FontRenderer;
-import WeatherAnalysisApp.Views.Layouts.AddCity.RightPanel;
-import WeatherAnalysisApp.Views.Layouts.AddCity.LeftPanel;
+import WeatherAnalysisApp.Components.FontRenderer;
+import WeatherAnalysisApp.Components.Layouts.AddCity.RightPanel;
+import WeatherAnalysisApp.Components.Layouts.AddCity.LeftPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.*;
  * Extends from <code>JFrame</code> class
  */
 public class AddCityView extends JFrame {
-    public AddCityView(MainController mainController) {
+    public AddCityView() {
         /*
          * Set the global font
          * Segoe UI, Plain, 14 size
@@ -42,16 +42,18 @@ public class AddCityView extends JFrame {
 
         new AddCityController(
                 this,
-                mainController,
 
-                RightPanel.citiesTableModel,
                 RightPanel.citiesTable,
 
                 LeftPanel.cityField,
                 LeftPanel.latitudeField,
                 LeftPanel.longitudeField,
                 LeftPanel.addButton,
-                LeftPanel.resetButton
+                LeftPanel.resetButton,
+
+                CenterPanel.cityList,
+                CenterPanel.cityListModel,
+                CenterPanel.cityDataTable
         );
 
         // ========== End of Components ==========

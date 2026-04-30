@@ -1,4 +1,4 @@
-package WeatherAnalysisApp.Views.Layouts.Main;
+package WeatherAnalysisApp.Components.Layouts.Main;
 
 import WeatherAnalysisApp.Services.HelperService;
 

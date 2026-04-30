@@ -1,8 +1,8 @@
-package WeatherAnalysisApp.Views.Tabs.Main;
+package WeatherAnalysisApp.Components.Tabs;
 
-import WeatherAnalysisApp.Views.Layouts.Main.BottomPanel;
-import WeatherAnalysisApp.Views.Layouts.Main.CenterPanel;
-import WeatherAnalysisApp.Views.Layouts.Main.TopPanel;
+import WeatherAnalysisApp.Components.Layouts.Main.BottomPanel;
+import WeatherAnalysisApp.Components.Layouts.Main.CenterPanel;
+import WeatherAnalysisApp.Components.Layouts.Main.TopPanel;
 
 import javax.swing.*;
 import java.awt.*;
