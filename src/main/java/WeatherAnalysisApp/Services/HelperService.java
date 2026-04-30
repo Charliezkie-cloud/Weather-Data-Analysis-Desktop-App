@@ -86,7 +86,7 @@ public class HelperService {
 
     /**
      * Converts weather code into a human-readable string
-     * WMO CODES: https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM
+     * WMO CODES: <a href="https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM">WMO CODE</a>
      * @param weatherCode The weather code of the city
      * @return The weather in string
      */

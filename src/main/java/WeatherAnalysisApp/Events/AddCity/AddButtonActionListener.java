@@ -75,7 +75,7 @@ public class AddButtonActionListener implements ActionListener {
         double longitude = Double.parseDouble(longitudeField.getText());
         CompletableFuture<WeatherResponse> res = ApiService.fetchCity(latitude, longitude);
 
-        res.thenAccept(data -> {
+        res.thenAccept(data ->
             SwingUtilities.invokeLater(() -> {
                 Data.CITIES_DATA.add(HelperService.weatherResponseToCityWeatherData(new City(cityName, latitude, longitude), data));
 
@@ -89,8 +89,8 @@ public class AddButtonActionListener implements ActionListener {
                         null,
                         String.format("%s latest weather data has successfully been added!", cityName)
                 );
-            });
-        });
+            })
+        );
     }
 
     // ========== TIMERS ANIMATION ==========
