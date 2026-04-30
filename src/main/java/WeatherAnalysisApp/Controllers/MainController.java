@@ -19,7 +19,7 @@ public class MainController {
             // Main view frame
             JFrame mainView,
 
-            // Main tab -> toppanel
+            // Main tab -> top panel
             JButton fetchButton,
             JButton analyzeDataButton,
             JButton clearButton,
@@ -32,6 +32,7 @@ public class MainController {
             DefaultTableModel cityDataTableModel,
             JTable cityDataTable,
             JMenuItem deleteCityMenuItem,
+            JMenuItem updateCityMenuItem,
 
             // Main tab -> bottom panel
             JLabel internetStatusLabel,
@@ -60,6 +61,7 @@ public class MainController {
         deleteCityMenuItem.addActionListener(new DeleteCityDataActionListener(cityList, cityListModel, cityDataTable));
         autoSaveCheckBox.addActionListener(new AutoSaveCheckBoxActionListener(autoSaveCheckBox));
         themeBox.addActionListener(new ThemeBoxActionListener(themeBox));
+        updateCityMenuItem.addActionListener(new UpdateCityActionListener(cityList));
         checkInternetButton.addActionListener(new CheckInternetButtonActionListener(checkInternetButton, internetStatusLabel));
 
         // Load threads

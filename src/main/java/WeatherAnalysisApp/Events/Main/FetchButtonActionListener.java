@@ -63,7 +63,7 @@ public class FetchButtonActionListener implements ActionListener {
         timer.start();
 
         CityWeatherData selectedCityWeatherData = Data.CITIES_DATA.get(selectedIndex);
-        CompletableFuture<WeatherResponse> res = ApiService.fetchCityByLatitudeLongitude(
+        CompletableFuture<WeatherResponse> res = ApiService.fetchCity(
                 selectedCityWeatherData.city.latitude,
                 selectedCityWeatherData.city.longitude
         );

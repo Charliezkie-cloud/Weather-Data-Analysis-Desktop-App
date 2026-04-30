@@ -74,7 +74,7 @@ public class AddButtonActionListener implements ActionListener {
         String cityName = cityField.getText();
         double latitude = Double.parseDouble(latitudeField.getText());
         double longitude = Double.parseDouble(longitudeField.getText());
-        CompletableFuture<WeatherResponse> res = ApiService.fetchCityByLatitudeLongitude(latitude, longitude);
+        CompletableFuture<WeatherResponse> res = ApiService.fetchCity(latitude, longitude);
 
         res.thenAccept(data -> {
             SwingUtilities.invokeLater(() -> {
@@ -122,15 +122,19 @@ public class AddButtonActionListener implements ActionListener {
     private String validateForm() {
         if (cityField.getText().trim().isEmpty())
             return "City is required.";
+        if (latitudeField.getText().isEmpty())
+            return "Latitude is required.";
+        if (longitudeField.getText().isEmpty())
+            return "Longitude is required.";
 
         try {
-            double longitude = Double.parseDouble(longitudeField.getText());
+            double latitude = Double.parseDouble(latitudeField.getText());
         } catch (NumberFormatException e) {
             return "Invalid latitude value.";
         }
 
         try {
-            double latitude = Double.parseDouble(latitudeField.getText());
+            double longitude = Double.parseDouble(longitudeField.getText());
         } catch (NumberFormatException e) {
             return "Invalid longitude value.";
         }

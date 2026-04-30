@@ -19,6 +19,5 @@ public class AutoSaveCheckBoxActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Data.APPLICATION_SETTINGS.setIsAutoSave(autoSaveCheckBox.isSelected());
-        System.out.println(autoSaveCheckBox.isSelected());
     }
 }

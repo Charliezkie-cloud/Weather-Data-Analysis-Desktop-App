@@ -13,7 +13,5 @@ public class Main {
             MainView mainView = new MainView();
             mainView.setVisible(true);
         });
-
-        // Api.runTestRequest();
     }
 }

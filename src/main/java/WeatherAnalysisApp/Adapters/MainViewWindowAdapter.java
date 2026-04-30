@@ -29,6 +29,8 @@ public class MainViewWindowAdapter extends WindowAdapter {
                 JOptionPane.INFORMATION_MESSAGE
         );
 
+        SettingsService.writeApplicationSettingsData();
+
         if (confirmation != JOptionPane.OK_OPTION)
             return;
 

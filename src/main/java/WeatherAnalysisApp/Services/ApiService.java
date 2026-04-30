@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Services;
 
+import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.WeatherResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,34 @@ public class ApiService {
      * @param longitude The longitude of the city
      * @return The <code>WeatherResponse</code> object
      */
-    public static CompletableFuture<WeatherResponse> fetchCityByLatitudeLongitude(double latitude, double longitude) {
+    public static CompletableFuture<WeatherResponse> fetchCity(double latitude, double longitude) {
+        String url = apiUrlBuilder(latitude, longitude);
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+
+        return httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
+                .thenApply(res -> {
+                    if (res.statusCode() == 200)
+                        return parseWeatherData(res.body());
+                    return null;
+                }).exceptionally(e -> {
+                    System.err.println("Something went wrong while fetching the API.");
+                    System.err.println("Error: " + e.getMessage());
+                    return null;
+                });
+    }
+
+    /**
+     * Fetches the weather API <code>open-meteo API</code>
+     * @param city The city model
+     */
+    public static CompletableFuture<WeatherResponse> fetchCity(City city) {
+        double latitude = city.latitude;
+        double longitude = city.longitude;
+
         String url = apiUrlBuilder(latitude, longitude);
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()

@@ -10,6 +10,10 @@ import WeatherAnalysisApp.Components.Layouts.AnalyzeData.CenterPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The Data Analysis view of the application
+ * Extends from <code>JFrame</code> class
+ */
 public class AnalyzeDataView extends JFrame {
     public AnalyzeDataView(CityWeatherData selectedCityWeatherData) {
         /*

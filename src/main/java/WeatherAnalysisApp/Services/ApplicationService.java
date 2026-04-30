@@ -18,17 +18,22 @@ public class ApplicationService {
         ArrayList<CityWeatherData> cachedData = CachingService.readApplicationData();
         ApplicationSettings applicationSettings = SettingsService.readApplicationSettingsData();
 
-        if (cachedData == null) return;
-        Data.CITIES_DATA.addAll(cachedData);
+        if (cachedData != null)
+            Data.CITIES_DATA.addAll(cachedData);
 
-        if (applicationSettings == null) return;
-        Data.APPLICATION_SETTINGS = applicationSettings;
+        if (applicationSettings != null) {
+            Data.APPLICATION_SETTINGS = applicationSettings;
 
-        // Load theme
-        if (Data.APPLICATION_SETTINGS.isDarkTheme)
-            FlatMacDarkLaf.setup();
-        else
-            FlatMacLightLaf.setup();
+            // Load theme
+            if (Data.APPLICATION_SETTINGS.isDarkTheme)
+                FlatMacDarkLaf.setup();
+            else
+                FlatMacLightLaf.setup();
+
+            return;
+        }
+
+        FlatMacLightLaf.setup();
     }
 
     // ========== TEST DATA ==========

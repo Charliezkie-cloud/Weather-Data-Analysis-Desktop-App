@@ -15,6 +15,7 @@ public class CenterPanel extends JPanel {
     public static DefaultTableModel cityDataTableModel;
     public static JTable cityDataTable;
     public static JMenuItem deleteCityMenuItem;
+    public static JMenuItem updateCityMenuItem;
 
     public CenterPanel() {
         setLayout(new GridLayout(1, 2));
@@ -46,8 +47,10 @@ public class CenterPanel extends JPanel {
 
             // Menu items
             deleteCityMenuItem = new JMenuItem("Delete");
+            updateCityMenuItem = new JMenuItem("Edit");
 
             cityListPopupMenu.add(deleteCityMenuItem);
+            cityListPopupMenu.add(updateCityMenuItem);
 
             cityList.setComponentPopupMenu(cityListPopupMenu);
 
