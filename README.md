@@ -4,7 +4,7 @@ This is a simple desktop application built using Java Swing that lets users view
 # [Download Here](https://github.com/Charliezkie-cloud/Weather-Data-Analysis-Desktop-App/releases)
 
 ## What it does?
-- Lets you choose cities from a list
+- Lets you choose cities via coordinates
 - Fetches real-time weather data using an API
 - Displays 7 days of temperature data in a table format
 - Shows simple analysis like:
