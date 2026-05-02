@@ -24,7 +24,7 @@ public class Data {
     public static final String APP_ORGANIZATION = "University of Cebu - Bachelor of Science in Information Technology";
     public static final String OPEN_SOURCE_LICENSE = "MIT License";
     public static final int APP_JAVA_VERSION = 25;
-    public static final String APP_EXTERNAL_LIBRARIES = "Flatlaf, Jackson Databind, JFreeChart";
+    public static final String APP_EXTERNAL_LIBRARIES = "Flatlaf, Jackson Databind, JFreeChart, Apache POI";
 
     // ========== APPLICATION APP DATA ==========
     public static final String APP_NAME = "weather-data-analysis-desktop-app";
