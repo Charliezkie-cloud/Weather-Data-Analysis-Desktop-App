@@ -16,6 +16,7 @@ public class CenterPanel extends JPanel {
     public static JTable cityDataTable;
     public static JMenuItem deleteCityMenuItem;
     public static JMenuItem updateCityMenuItem;
+    public static JMenuItem exportCityMenuItem;
 
     public CenterPanel() {
         setLayout(new GridLayout(1, 2));
@@ -48,9 +49,12 @@ public class CenterPanel extends JPanel {
             // Menu items
             deleteCityMenuItem = new JMenuItem("Delete");
             updateCityMenuItem = new JMenuItem("Edit");
+            exportCityMenuItem = new JMenuItem("Export to Excel Workbook");
 
-            cityListPopupMenu.add(deleteCityMenuItem);
+            cityListPopupMenu.add(exportCityMenuItem);
+            cityListPopupMenu.addSeparator();
             cityListPopupMenu.add(updateCityMenuItem);
+            cityListPopupMenu.add(deleteCityMenuItem);
 
             cityList.setComponentPopupMenu(cityListPopupMenu);
 

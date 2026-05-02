@@ -25,6 +25,7 @@ public class ListService {
         clearCityList(cityList);
 
         for (CityWeatherData cityWeatherData : Data.CITIES_DATA)
-            cityListModel.addElement(cityWeatherData.city.name);
+            if (cityWeatherData != null)
+                cityListModel.addElement(cityWeatherData.city.name);
     }
 }

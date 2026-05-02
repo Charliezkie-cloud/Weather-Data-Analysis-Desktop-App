@@ -34,6 +34,7 @@ public class MainController {
             JTable cityDataTable,
             JMenuItem deleteCityMenuItem,
             JMenuItem updateCityMenuItem,
+            JMenuItem exportCityMenuItem,
 
             // Main tab -> bottom panel
             JLabel internetStatusLabel,
@@ -67,6 +68,7 @@ public class MainController {
         themeBox.addActionListener(new ThemeBoxActionListener(themeBox));
         updateCityMenuItem.addActionListener(new UpdateCityActionListener(cityList));
         checkInternetButton.addActionListener(new CheckInternetButtonActionListener(checkInternetButton, internetStatusLabel));
+        exportCityMenuItem.addActionListener(new ExportCityActionListener(cityList));
 
         // Load threads
         Thread checkInternetThread = new Thread(new CheckInternet(internetStatusLabel));

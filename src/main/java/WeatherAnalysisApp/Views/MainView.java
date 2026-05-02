@@ -61,6 +61,7 @@ public class MainView extends JFrame {
                 CenterPanel.cityDataTable,
                 CenterPanel.deleteCityMenuItem,
                 CenterPanel.updateCityMenuItem,
+                CenterPanel.exportCityMenuItem,
 
                 BottomPanel.internetStatusLabel,
 

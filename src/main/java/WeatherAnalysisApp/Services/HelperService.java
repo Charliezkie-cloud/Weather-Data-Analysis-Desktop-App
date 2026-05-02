@@ -1,5 +1,6 @@
 package WeatherAnalysisApp.Services;
 
+import WeatherAnalysisApp.Components.CustomJOptionPane;
 import WeatherAnalysisApp.Enums.Timezone;
 import WeatherAnalysisApp.Models.City;
 import WeatherAnalysisApp.Models.CityWeatherData;
@@ -23,6 +24,11 @@ public class HelperService {
      * @return The <code>CityWeatherData</code> object
      */
     public static CityWeatherData weatherResponseToCityWeatherData(City city, WeatherResponse weatherResponse) {
+        if (weatherResponse == null) {
+            CustomJOptionPane.showErrorDialog(null, "Unable to fetch data, please try again later.");
+            return null;
+        }
+
         ArrayList<HourlyPoint> hourlyPoints = new ArrayList<>();
         ArrayList<DailyPoint> dailyPoints = new ArrayList<>();
 

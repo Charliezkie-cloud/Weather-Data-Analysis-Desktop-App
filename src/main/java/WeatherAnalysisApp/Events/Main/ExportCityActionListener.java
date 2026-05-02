@@ -1,37 +1,34 @@
 package WeatherAnalysisApp.Events.Main;
 
+import WeatherAnalysisApp.Application.Data;
 import WeatherAnalysisApp.Components.CustomJOptionPane;
-import WeatherAnalysisApp.Services.ApiService;
-import WeatherAnalysisApp.Views.EditCityView;
+import WeatherAnalysisApp.Models.CityWeatherData;
+import WeatherAnalysisApp.Services.ExportService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Action listener for updating the city details
+ * Action listener for exporting city weather data into excel workbook
  */
-public class UpdateCityActionListener implements ActionListener {
+public class ExportCityActionListener implements ActionListener {
     private final JList<String> cityList;
 
-    public UpdateCityActionListener(JList<String> cityList) {
+    public ExportCityActionListener(JList<String> cityList) {
         this.cityList = cityList;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!ApiService.isInternetAvailable()) {
-            CustomJOptionPane.showErrorDialog(null, "You have no internet connection.");
-            return;
-        }
-
         int selectedIndex = cityList.getSelectedIndex();
+
         if (selectedIndex == -1) {
             CustomJOptionPane.showErrorDialog(null, "Please select a city.");
             return;
         }
 
-        EditCityView editCityView = new EditCityView(selectedIndex);
-        editCityView.setVisible(true);
+        CityWeatherData selectedCityWeatherData = Data.CITIES_DATA.get(selectedIndex);
+        ExportService.showSaveCityToExcel(selectedCityWeatherData);
     }
 }
