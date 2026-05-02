@@ -9,7 +9,7 @@ This is a simple desktop application built using Java Swing that lets users view
 
 ## What it does?
 - Lets you choose cities via coordinates
-- Multiple timezones
+- Lets you choose multiple timezones
 - Fetches real-time weather data using an API
 - Displays 7 days of temperature data in a table format
 - Shows simple analysis like:
