@@ -6,6 +6,7 @@ import WeatherAnalysisApp.Services.HelperService;
 import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 
 /**
@@ -22,6 +23,7 @@ public class AnalyzeDataController {
             // Center panel components
             XYSeries maximumTempData,
             XYSeries minimumTempData,
+            DefaultTableModel cityDataTableModel,
 
             // Bottom panel components
             JLabel cityLabel,
@@ -47,6 +49,7 @@ public class AnalyzeDataController {
         for (DailyPoint dailyPoint : selectedCityWeatherData.dailyPoints) {
             double maxTemp = dailyPoint.temperature_2m_max;
             double minTemp = dailyPoint.temperature_2m_min;
+            LocalDate localDate = LocalDate.parse(dailyPoint.time);
 
             maximumTempData.add(days, maxTemp);
             minimumTempData.add(days, minTemp);
@@ -58,6 +61,11 @@ public class AnalyzeDataController {
                 highestMaxTemperature = maxTemp;
             if (minTemp < lowestMinTemperature)
                 lowestMinTemperature = minTemp;
+
+            cityDataTableModel.addRow(new Object[]{
+                    localDate.format(HelperService.DATE_FORMATTER),
+                    HelperService.getWeatherCodeString(dailyPoint.weather_code)
+            });
 
             days++;
         }

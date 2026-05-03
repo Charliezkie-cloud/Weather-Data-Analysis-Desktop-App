@@ -47,6 +47,7 @@ public class AnalyzeDataView extends JFrame {
 
                 CenterPanel.maximumTempData,
                 CenterPanel.minimumTempData,
+                CenterPanel.cityDataTableModel,
 
                 BottomPanel.cityLabel,
                 BottomPanel.periodLabel,

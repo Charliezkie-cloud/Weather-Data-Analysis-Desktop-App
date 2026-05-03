@@ -12,8 +12,8 @@ import javax.swing.table.DefaultTableModel;
 /**
  * The controller for <code>EditCityView</code>
  */
-public class UpdateCityController {
-    public UpdateCityController(
+public class EditCityController {
+    public EditCityController(
             // Edit city view frame
             JFrame editCityView,
 

@@ -5,7 +5,7 @@ import WeatherAnalysisApp.Components.FontRenderer;
 import WeatherAnalysisApp.Components.Layouts.EditCity.BottomPanel;
 import WeatherAnalysisApp.Components.Layouts.EditCity.TopPanel;
 import WeatherAnalysisApp.Components.Layouts.Main.CenterPanel;
-import WeatherAnalysisApp.Controllers.UpdateCityController;
+import WeatherAnalysisApp.Controllers.EditCityController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class EditCityView extends JFrame {
         mainContent.add(topPanel, BorderLayout.NORTH);
         mainContent.add(bottomPanel, BorderLayout.SOUTH);
 
-        new UpdateCityController(
+        new EditCityController(
                 this,
                 selectedCityIndex,
 

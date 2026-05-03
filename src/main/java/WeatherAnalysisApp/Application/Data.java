@@ -20,7 +20,7 @@ public class Data {
 
     // ========== APPLICATION INFORMATION'S ==========
     public static final String APP_AUTHOR = "Charles Henry M. Tinoy Jr.";
-    public static final String APP_VERSION = "v1.0.0 - Stable Release";
+    public static final String APP_VERSION = "v1.0.1";
     public static final String APP_ORGANIZATION = "University of Cebu - Bachelor of Science in Information Technology";
     public static final String OPEN_SOURCE_LICENSE = "MIT License";
     public static final int APP_JAVA_VERSION = 25;
