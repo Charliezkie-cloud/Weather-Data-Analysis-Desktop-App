@@ -40,6 +40,7 @@ public class CenterPanel extends JPanel {
     /**
      * The left panel for the center panel of analyze data view
      */
+    @SuppressWarnings("all")
     private class LeftPanel extends JPanel {
         public LeftPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -81,6 +82,7 @@ public class CenterPanel extends JPanel {
     /**
      * The right panel for the center panel of analyze data view
      */
+    @SuppressWarnings("all")
     private class RightPanel extends JPanel {
         public RightPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

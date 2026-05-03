@@ -6,6 +6,7 @@ import WeatherAnalysisApp.Views.MainView;
 import javax.swing.*;
 
 public class Main {
+    @SuppressWarnings("all")
     public static void main(String[] args) {
         ApplicationService.initialize();
 
