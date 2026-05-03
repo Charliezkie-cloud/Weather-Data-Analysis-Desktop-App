@@ -7,6 +7,11 @@ This is a simple desktop application built using Java Swing that lets users view
 | --- | --- |
 | <img width="1318" height="906" alt="Screenshot 2026-05-02 091743" src="https://github.com/user-attachments/assets/1c110f0e-dc62-483f-b8dc-7c05efd249b2" /> | <img width="1319" height="911" alt="image" src="https://github.com/user-attachments/assets/d7813a2c-521c-4df3-af98-0a395f084a1a" /> |
 
+# System requirements
+| Operating system | Java runtime |
+| --- | --- |
+| Windows 10/11+ (Recommended) | Java 25 or newer |
+
 ## What it does?
 - Lets you choose cities via coordinates
 - Lets you choose multiple timezones
